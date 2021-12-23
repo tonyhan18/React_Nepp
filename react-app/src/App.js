@@ -1,17 +1,9 @@
-import logo from "./logo.svg";
+//import logo from "./logo.svg";
 import "./App.css";
-import MyComponent from "./components/MyComponent";
-import Jsx from "./components/Jsx";
+import EventPractice from "./components/EventPractice";
 
 function App() {
-  const name = "REACT";
-  return (
-    <MyComponent name={name}>
-      안녕하세요.
-      <div>DIV 입니다.</div>
-      <Jsx />
-    </MyComponent>
-  );
+  return <EventPractice />;
 }
 
 export default App;
