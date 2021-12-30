@@ -1,9 +1,10 @@
 //import logo from "./logo.svg";
 import "./App.css";
-import EventPractice from "./components/EventPractice";
+import Info from "./components/Info";
 
 function App() {
-  return <EventPractice />;
+  let showInfo = false;
+  return showInfo && <Info />;
 }
 
 export default App;
