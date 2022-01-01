@@ -1,12 +1,14 @@
-//import logo from "./logo.svg";
-import { useState } from "react";
-import "./App.css";
-import Average from "./components/Average";
-import Counter3 from "./components/Counter3";
-import Info from "./components/Info";
+import styles from "./App.module.css";
+import StyledComponent from "./components/StyledComponent";
 
 function App() {
-  return <Average />;
+  return (
+    <>
+      {/* <div className={styles.react}>안녕하세요</div>
+      <Average /> */}
+      <StyledComponent />
+    </>
+  );
 }
 
 export default App;
