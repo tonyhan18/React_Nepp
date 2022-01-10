@@ -2,16 +2,19 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const Dropdown = () => {
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState(true);
 
-  document.body.addEventListener("click", () => {
-    setIsShow(false);
-  });
+  // document.body.addEventListener("click", () => {
+  //   setIsShow(!isShow);
+  // });
+
   const handleClick = () => {
-    setIsShow(!isShow);
+    setIsShow((prev) => !prev);
   };
+
   return (
     <Wrapper>
+      <Backdrop />
       <Btn onClick={handleClick}>Dropdown Button</Btn>
       {isShow && (
         <Menu>
@@ -24,20 +27,29 @@ const Dropdown = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  position: relative;
+`;
 const Btn = styled.div`
-  max-width: 100px;
-  padding: 5px;
-  background-color: green;
-  color: white;
-  border-radius: 5px;
+  max-width: 155px;
+  padding: 6px 12px;
   font-size: 16px;
+  background: #198754;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  line-height: 1.5;
+  cursor: pointer;
 `;
 const Menu = styled.ul`
-  background: #fff;
+  background-color: #fff;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 4px;
+  position: absolute;
 `;
 const Item = styled.li`
   padding: 5px 15px;
+  width: 155px;
   cursor: pointer;
   & + & {
     border-top: 1px solid #ddd;
