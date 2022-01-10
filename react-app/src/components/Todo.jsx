@@ -1,47 +1,61 @@
 import React, { useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Todo = () => {
-  const [value, setValue] = useState("");
-  const [todos, setTodos] = useState([
-    { id: 1, text: "함해보자", checked: true },
-  ]);
-  const nextId = useRef(2);
+  const [text, setText] = useState("");
+  const [todoList, setTodoList] = useState([]);
+  const nextId = useRef(1);
 
-  const changeValue = (e) => {
-    setValue(e.target.value);
+  const handleDelete = (id) => {
+    const newTodoList = todoList.filter((e) => e.id !== id);
+    setTodoList(newTodoList);
   };
 
-  const handleAddTodo = (e) => {
-    e.preventDefault();
-    setTodos([...todos, { id: nextId, text: value, checked: "false" }]);
-    nextId.current = nextId.current + 1;
+  const handleSubmit = (e) => {
+    e.preventDefault(); //Enter시 발생하는 새로고침 방지
+    if (text === "") return;
+    setTodoList([
+      ...todoList,
+      { id: nextId.current, text: text, isDone: false },
+    ]);
+    setText("");
+    nextId.current++;
+  };
+
+  const handleIsDone = (e, id) => {
+    const isDone = e.target.checked;
+    const newTodoList = todoList.map((todo) => {
+      return todo.id === id ? { ...todo, isDone: isDone } : todo;
+    });
+    setTodoList(newTodoList);
   };
 
   return (
     <Container>
       <Title>일정관리</Title>
-      <InputWrapper>
-        <InputText
-          value={value}
-          placeholder="할 일을 입력해주세요"
-          onChange={changeValue}
-        />
-        <BtnSubmit onClick={handleAddTodo}>+</BtnSubmit>
-      </InputWrapper>
+      <form onSubmit={handleSubmit}>
+        <InputWrapper>
+          <InputText
+            value={text}
+            placeholder="할 일을 입력해주세요"
+            onChange={(e) => setText(e.target.value)}
+            required
+          />
+          <BtnSubmit>+</BtnSubmit>
+        </InputWrapper>
+      </form>
       <List>
-        {todos.map((e, i) => (
-          <Item key={i}>
+        {todoList.map(({ id, text, isDone }) => (
+          <Item key={id}>
             <label>
               <Checkbox
                 type="checkbox"
-                checked={() => {
-                  return e.checked ? true : false;
-                }}
+                onChange={(e) => handleIsDone(e, id)}
+                checked={isDone}
               />
-              <Content>{e.text}</Content>
+              <Content isDone={isDone}>{text}</Content>
             </label>
-            <BtnDelete>X</BtnDelete>
+            <BtnDelete onClick={() => handleDelete(id)}>X</BtnDelete>
           </Item>
         ))}
       </List>
@@ -151,6 +165,15 @@ const Content = styled.div`
   padding-left: 0.5rem;
   //2. 크기
   //3. 꾸미기
+  /* color: ${(props) => (props.isDone ? "#efefef" : "#fff")};
+  text-decoration: ${({ isDone }) => isDone && "line-through"}; */
+  ${({ isDone }) => {
+    isDone &&
+      css`
+        color: #efefef;
+        text-decoration: line-through;
+      `;
+  }}
 `;
 const BtnDelete = styled.button`
   //1. 위치설정

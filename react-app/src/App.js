@@ -1,3 +1,4 @@
+import Bootstrap from "./components/bootstrap/Bootstrap";
 import Todo from "./components/Todo";
 
 function App() {
@@ -5,7 +6,7 @@ function App() {
     <>
       {/* <div className={styles.react}>안녕하세요</div>
       <Average /> */}
-      <Todo />
+      <Bootstrap />
     </>
   );
 }
