@@ -1,27 +1,61 @@
-import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { getMovieList } from "../../apis/movie";
+import { countryList } from "../../datas";
+import { BtnSubmit, Form, InputText } from "../atoms";
 import { MovieList } from "../organisms";
+import Pagination from "../organisms/Pagination";
 
 const Movie = () => {
+  const [page, setPage] = useState(1);
+  const [text, settext] = useState("");
+  const [movieList, setMovieList] = useState([]);
+  const [country, setCountry] = useState(countryList[0].code);
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    searchMovie();
+  }, [country, page, query]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setPage(1);
+    setQuery(text);
+  };
+
+  const searchMovie = async () => {
+    if (!query) return;
+    const start = page * 10 - 9;
+    const params = { query, start };
+    if (country !== "ALL") {
+      params.country = country;
+    }
+    const { items } = await getMovieList(params);
+    //console.log(items);
+    setMovieList(items);
+  };
+
   return (
     <div>
       <h1>Movie</h1>
-      <Form>
-        <InputText />
+      <Form onSubmit={handleSubmit}>
+        <select onChange={(e) => setCountry(e.target.value)}>
+          {countryList.map(({ code, name }) => (
+            <option key={code} value={code}>
+              {name}
+            </option>
+          ))}
+        </select>
+        <InputText
+          name="text"
+          value={text}
+          onChange={(e) => settext(e.target.value)}
+        />
         <BtnSubmit>검색</BtnSubmit>
       </Form>
-      <MovieList />
+      <Pagination onPageChange={(page) => setPage(page)} />
+      <MovieList data={movieList} />
     </div>
   );
 };
-
-const Form = styled.form`
-  display: flex;
-  padding: 10px;
-`;
-const InputText = styled.input`
-  flex: 1;
-  margin-right: 10px;
-`;
-const BtnSubmit = styled.button``;
 
 export default Movie;

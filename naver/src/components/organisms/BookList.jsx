@@ -1,6 +1,6 @@
 import { Item, List, PubDate, Title, UserRating, Image } from "../atoms";
 
-const MovieList = ({ data }) => {
+const BookList = ({ data }) => {
   return (
     <>
       <List>
@@ -19,4 +19,4 @@ const MovieList = ({ data }) => {
   );
 };
 
-export default MovieList;
+export default BookList;
