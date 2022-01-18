@@ -3,6 +3,7 @@ import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
+import cors from "cors";
 
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
@@ -10,6 +11,7 @@ import usersRouter from "./routes/users.js";
 const __dirname = path.resolve();
 let app = express();
 
+app.use(cors({ origin: "http://localhost:3000" }));
 // view engine setup
 // view control
 app.set("views", path.join(__dirname, "views"));
