@@ -1,19 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
+const linkList = [
+  {
+    link: "/",
+    name: "메인",
+  },
+  {
+    link: "/movie",
+    name: "영화",
+  },
+  {
+    link: "/book",
+    name: "책",
+  },
+];
+
 const TopNav = () => {
+  const location = useLocation();
+  console.log(location);
+  if (location.pathname === "/") {
+    return <></>;
+  }
   return (
     <Container>
       <Nav>
-        <Link to="/">
-          <LinkItem>메인</LinkItem>
-        </Link>
-        <Link to="/movie">
-          <LinkItem>영화</LinkItem>
-        </Link>
-        <Link to="/book">
-          <LinkItem>책</LinkItem>
-        </Link>
+        {linkList.map(({ link, name }) => (
+          <CustomLink to={link} key={link + name}>
+            <LinkItem>{name}</LinkItem>
+          </CustomLink>
+        ))}
       </Nav>
     </Container>
   );
@@ -37,6 +53,12 @@ const Nav = styled.nav`
 const LinkItem = styled.div`
   margin: 0 10px;
   padding: 10px;
+`;
+const CustomLink = styled(NavLink)`
+  &.active {
+    background: #000;
+    color: #fff;
+  }
 `;
 
 export default TopNav;

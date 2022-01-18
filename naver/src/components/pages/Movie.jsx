@@ -6,11 +6,12 @@ import { MovieList } from "../organisms";
 import Pagination from "../organisms/Pagination";
 
 const Movie = () => {
-  const [page, setPage] = useState(1);
   const [text, settext] = useState("");
   const [movieList, setMovieList] = useState([]);
   const [country, setCountry] = useState(countryList[0].code);
   const [query, setQuery] = useState("");
+  const [total, setTotle] = useState(0);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     searchMovie();
@@ -29,9 +30,10 @@ const Movie = () => {
     if (country !== "ALL") {
       params.country = country;
     }
-    const { items } = await getMovieList(params);
+    const { items, total } = await getMovieList(params);
     //console.log(items);
     setMovieList(items);
+    setTotle(total);
   };
 
   return (
@@ -52,7 +54,11 @@ const Movie = () => {
         />
         <BtnSubmit>검색</BtnSubmit>
       </Form>
-      <Pagination onPageChange={(page) => setPage(page)} />
+      <Pagination
+        onPageChange={(page) => setPage(page)}
+        total={total}
+        nowPage={page}
+      />
       <MovieList data={movieList} />
     </div>
   );

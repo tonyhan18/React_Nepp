@@ -10,6 +10,7 @@ const Router = () => {
         <Route path="/" element={<Main />} />
         <Route path="/movie" element={<Movie />} />
         <Route path="/book" element={<Book />} />
+        <Route path="/book/:isbn" element={<Book />} />
       </Routes>
     </BrowserRouter>
   );
