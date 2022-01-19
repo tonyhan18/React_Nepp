@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const linkList = [
@@ -17,9 +17,8 @@ const linkList = [
 ];
 
 const TopNav = () => {
-  const location = useLocation();
-  console.log(location);
-  if (location.pathname === "/") {
+  const { pathname } = useLocation();
+  if (pathname === "/") {
     return <></>;
   }
   return (

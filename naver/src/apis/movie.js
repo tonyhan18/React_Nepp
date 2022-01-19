@@ -1,11 +1,8 @@
 import axios from "axios";
+import { instance } from ".";
 
 export const getMovieList = async (params) => {
-  const { data } = await axios.get("/v1/search/movie.json", {
-    headers: {
-      "X-Naver-Client-Id": "KDa2ZMvqLu1qOR1yMXQF",
-      "X-Naver-Client-Secret": "s1nQka0vKc",
-    },
+  const { data } = await instance.get("/v1/search/movie.json", {
     params,
   });
   return data;

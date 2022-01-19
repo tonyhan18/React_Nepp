@@ -1,18 +1,33 @@
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getBookList } from "../../apis/book";
 import { countryList } from "../../datas";
 import { BtnSubmit, Form, InputText } from "../atoms";
 import BookList from "../organisms/BookList";
 import Pagination from "../organisms/Pagination";
+import qs from "qs";
 
 const Book = () => {
+  const { search } = useLocation();
+  const navigate = useNavigate();
   const [text, settext] = useState("");
   const [bookList, setBookList] = useState([]);
   const [country, setCountry] = useState(countryList[0].code);
   const [query, setQuery] = useState("");
   const [total, setTotle] = useState(0);
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    const { query, page } = qs.parse(search.slice(1));
+    if (query) {
+      setQuery(query);
+      settext(query);
+    }
+    if (page) {
+      setPage(+page); //이렇게하면 숫자로 바뀜
+    }
+  }, [search]);
 
   useEffect(() => {
     searchBook();
@@ -32,9 +47,10 @@ const Book = () => {
       params.country = country;
     }
     const { items, total } = await getBookList(params);
-    //console.log(items);
     setBookList(items);
     setTotle(total);
+    const search = qs.stringify({ query, page });
+    navigate({ search });
   };
 
   return (
