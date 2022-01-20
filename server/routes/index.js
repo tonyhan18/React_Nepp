@@ -1,4 +1,5 @@
 import express from "express";
+import { getMovieList } from "../apis/naver.js";
 let router = express.Router();
 
 /* GET home page. */
@@ -7,6 +8,12 @@ let router = express.Router();
 // 이게 가능한게 app.js의 app.set(views와 view engine) 부분 덕분이다.
 router.get("/", function (req, res, next) {
   res.render("index", { title: "React" });
+});
+
+router.get("/movie", async function (req, res, next) {
+  const result = await getMovieList(req.query);
+  console.log(result);
+  res.send({ success: true });
 });
 
 export default router;
