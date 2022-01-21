@@ -1,5 +1,5 @@
 import express from "express";
-import { getMovieList } from "../apis/naver.js";
+import { getBookDetail, getBookList, getMovieList } from "../apis/naver.js";
 let router = express.Router();
 
 /* GET home page. */
@@ -13,7 +13,23 @@ router.get("/", function (req, res, next) {
 router.get("/movie", async function (req, res, next) {
   const result = await getMovieList(req.query);
   console.log(result);
-  res.send({ success: true });
+  res.send(result);
+});
+
+router.get("/book", async function (req, res, next) {
+  const result = await getBookList(req.query);
+  // console.log(result);
+  res.send(result);
+});
+
+router.get("/book/:isbn", async function (req, res, next) {
+  const { isbn } = req.params;
+  const params = {
+    d_isbn: isbn,
+  };
+  const result = await getBookDetail(params);
+  // console.log(result);
+  res.send(result);
 });
 
 export default router;
