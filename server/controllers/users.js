@@ -34,11 +34,14 @@ export const postUsersToken = async function (req, res, next) {
   if (users.length === 0) {
     res.send({ success: false, message: "일치하는 유저가 없습니다" });
   }
+  // 비밀번호 검증
   const user = users[0];
   const { salt } = user;
   const hashedPW = await bcrypt.hash(password, salt);
   if (user.password != hashedPW) {
-    return res.send({ success: false, message: "비밀번호가 틀렸습니다" });
+    return res
+      .status(401)
+      .send({ success: false, message: "비밀번호가 틀렸습니다" });
   }
 
   const payload = { userId: user.id };
