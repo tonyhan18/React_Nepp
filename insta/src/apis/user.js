@@ -1,3 +1,5 @@
+import { instance } from "./index";
+
 export const addUser = (params) => {
-  console.log(params);
+  instance.post("/users", params);
 };

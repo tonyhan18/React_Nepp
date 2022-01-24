@@ -3,25 +3,23 @@ import styled from "styled-components";
 
 const Dropdown = () => {
   const [isShow, setIsShow] = useState(true);
-
-  // document.body.addEventListener("click", () => {
-  //   setIsShow(!isShow);
-  // });
-
   const handleClick = () => {
     setIsShow((prev) => !prev);
+    console.log("click");
   };
 
   return (
     <Wrapper>
-      <Backdrop />
       <Btn onClick={handleClick}>Dropdown Button</Btn>
       {isShow && (
-        <Menu>
-          <Item>Action</Item>
-          <Item>Action</Item>
-          <Item>Action</Item>
-        </Menu>
+        <>
+          <Backdrop onClick={handleClick} />
+          <Menu>
+            <Item>Action</Item>
+            <Item>Action</Item>
+            <Item>Action</Item>
+          </Menu>
+        </>
       )}
     </Wrapper>
   );
@@ -46,6 +44,7 @@ const Menu = styled.ul`
   border: 1px solid rgb(221, 221, 221);
   border-radius: 4px;
   position: absolute;
+  z-index: 101;
 `;
 const Item = styled.li`
   padding: 5px 15px;
@@ -65,6 +64,7 @@ const Backdrop = styled.div`
   position: fixed;
   left: 0;
   top: 0;
+  z-index: 100;
 `;
 
 export default Dropdown;

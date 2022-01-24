@@ -24,6 +24,11 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { password, passwordConfirm } = userInfo;
+    if (password.length < 4) return alert("비밀번호가 너무 짧습니다");
+    if (password !== passwordConfirm)
+      return alert("비밀번호를 정확히 입력하세요");
+
     addUser(userInfo);
   };
 
