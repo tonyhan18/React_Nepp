@@ -19,9 +19,12 @@ User.virtual("password").set(function (password) {
 });
 
 // Salt 생성 함수
-User.method("makeSalt", () => {
+// User.method("makeSalt", () => {
+//   return Math.round(new Date().valueOf() * Math.random()) + "THISISSECRET";
+// });
+User.methods.makeSalt = function () {
   return Math.round(new Date().valueOf() * Math.random()) + "THISISSECRET";
-});
+};
 
 // 해시된 비밀번호 생성 함수
 User.method("encryptPassword", function (plainPassword) {
