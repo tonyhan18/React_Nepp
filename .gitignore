@@ -1,5 +1,2 @@
 /node_modules
 /fastcampus*
-/.nuxt
-/dist
-npm-debug.log
