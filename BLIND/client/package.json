@@ -16,10 +16,5 @@
     "vue-server-renderer": "^2.6.14",
     "vue-template-compiler": "^2.6.14",
     "webpack": "^4.46.0"
-<<<<<<< HEAD
-  },
-  "devDependencies": {}
-=======
   }
->>>>>>> 76356737bd2f15743c586ae24674c230f69a1ad7
 }
