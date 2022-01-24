@@ -1,7 +1,9 @@
-// 강의
+// essential
 const express = require("express");
 const cors = require("cors");
+// routes
 const { article, company, comment, user, board, reply } = require("./routes");
+// use it
 const app = express();
 const PORT = 3000;
 

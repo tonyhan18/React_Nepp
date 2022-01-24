@@ -1,31 +1,37 @@
-import createError from "http-errors";
+// essential
 import express from "express";
-import path from "path";
-import cookieParser from "cookie-parser";
-import logger from "morgan";
 import cors from "cors";
-
+//routes
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
 
-const __dirname = path.resolve();
+// use express and init settings
 let app = express();
+app.use(cors({ origin: "http://localhost:3000" })); // cors처리
+app.use(express.json()); // POST가 왔을때 req.body에 데이터를 담아준다
+app.use(express.urlencoded({ extended: false })); //
 
-app.use(cors({ origin: "http://localhost:3000" }));
+// route control
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
+
+// default settings
+import createError from "http-errors";
+import path from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+
+const __dirname = path.resolve();
+
 // view engine setup
 // view control
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
 app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
-// route control
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -3,6 +3,7 @@ const schema = require("./schema/index.js");
 
 const db = mongoose.connection;
 const model = (() => {
+  //연결테스트
   db.on("error", console.error);
   db.on("open", () => {
     console.log("Connection mongodb!");
@@ -17,6 +18,9 @@ const model = (() => {
   const model = {};
   for (let key in schema) {
     model[key] = mongoose.model(key, schema[key]);
+  }
+  for (let i in model) {
+    console.log(model[i], i);
   }
   return model;
 })();

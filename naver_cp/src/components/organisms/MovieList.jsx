@@ -3,11 +3,13 @@ import styled from "styled-components";
 const MovieList = ({ movies }) => {
   return (
     <List>
-      {movies.map((list, i) => (
+      {movies.map(({ image, title, pubDate, UserRating, link }, i) => (
         <Item key={i}>
-          <Image src={list.image} /> <MovieTitle>{list.title}</MovieTitle>
-          <PubDate>{list.pubDate}</PubDate>
-          <UserRating>{list.UserRating}</UserRating>
+          <a href={link} target={"_blank"} />
+          <Image src={image} />
+          <MovieTitle dangerouslySetInnerHTML={{ __html: title }} />
+          <PubDate>{pubDate}</PubDate>
+          <UserRatingCustome>{UserRating}</UserRatingCustome>
         </Item>
       ))}
     </List>
@@ -26,6 +28,6 @@ const Image = styled.img`
 `;
 const MovieTitle = styled.p``;
 const PubDate = styled.div``;
-const UserRating = styled.div``;
+const UserRatingCustome = styled.div``;
 
 export default MovieList;
