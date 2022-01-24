@@ -43,7 +43,7 @@ export const postUsersToken = async function (req, res, next) {
       .status(401)
       .send({ success: false, message: "비밀번호가 틀렸습니다" });
   }
-
+  // 토큰 발급
   const payload = { userId: user.id };
   const option = { expiresIn: "1h" };
   const token = jwt.sign(payload, secretkey, option);
