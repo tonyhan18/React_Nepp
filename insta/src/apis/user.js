@@ -1,5 +1,20 @@
-import { instance } from "./index";
+import { Instance } from "./index";
 
-export const addUser = (params) => {
-  instance.post("/users", params);
+export const addUser = async (params) => {
+  try {
+    const result = await Instance.post("/users", params);
+    return result.data;
+  } catch ({ response }) {
+    return response.data;
+  }
+};
+
+export const getToken = async (params) => {
+  console.log(params);
+  try {
+    const result = await Instance.post("/users/token", params);
+    return result.data;
+  } catch ({ response }) {
+    return response.data;
+  }
 };

@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useNavigate } from "../../../node_modules/react-router-dom/index";
+import { getToken } from "../../apis/user";
 import {
   Box,
   BtnSubmit,
@@ -12,14 +15,41 @@ import {
 } from "../atoms/login";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [loginInfo, setLoginInfo] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLoginInfo({ ...loginInfo, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { success, token } = await getToken(loginInfo);
+    if (success) {
+      navigate("/");
+    } else {
+      alert("로그인 실패");
+    }
+  };
+
   return (
     <PageWrapper>
       <Main>
         <Box>
-          <Logo src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" />
-          <Form>
-            <InputText placeholder="전화번호, 사용자 이름 또는 이메일" />
-            <InputText placeholder="비밀번호" type="password" />
+          <Logo src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png" />
+          <Form onSubmit={handleSubmit}>
+            <InputText
+              name="username"
+              placeholder="전화번호, 사용자 이름 또는 이메일"
+              onChange={handleChange}
+            />
+            <InputText
+              name="password"
+              placeholder="비밀번호"
+              type="password"
+              onChange={handleChange}
+            />
             <BtnSubmit>로그인</BtnSubmit>
           </Form>
           <FBLogin>Facebook으로 로그인</FBLogin>
