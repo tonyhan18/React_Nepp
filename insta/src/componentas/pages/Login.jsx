@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useNavigate } from "../../../node_modules/react-router-dom/index";
@@ -13,10 +13,13 @@ import {
   SignupWrapper,
   Main,
 } from "../atoms/login";
+import { Instance } from "../../apis/index.js";
+import UserContext from "../../contexts/user";
 
 const Login = () => {
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({});
+  const { setIsLogin } = useContext(UserContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +30,9 @@ const Login = () => {
     e.preventDefault();
     const { success, token } = await getToken(loginInfo);
     if (success) {
+      localStorage.token = token;
+      Instance.defaults.headers.common["Authorization"] = token;
+      setIsLogin(true);
       navigate("/");
     } else {
       alert("로그인 실패");
