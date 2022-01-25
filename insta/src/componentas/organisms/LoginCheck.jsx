@@ -1,5 +1,8 @@
 import { useContext, useEffect } from "react";
-import { useNavigate } from "../../../node_modules/react-router-dom/index";
+import {
+  Outlet,
+  useNavigate,
+} from "../../../node_modules/react-router-dom/index";
 import UserContext from "../../contexts/user";
 
 const LoginCheck = () => {
@@ -8,10 +11,14 @@ const LoginCheck = () => {
 
   useEffect(() => {
     if (!isLogin) {
-      navigate("/login");
+      //navigate("/login");
     }
   }, [isLogin, navigate]);
-  return <></>;
+  return (
+    <>
+      <Outlet />
+    </>
+  );
 };
 
 export default LoginCheck;

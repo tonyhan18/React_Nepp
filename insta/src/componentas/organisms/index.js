@@ -1,3 +1,1 @@
-import LoginCheck from "./LoginCheck";
-
-export default LoginCheck;
+export { default as LoginCheck } from "./LoginCheck";

@@ -15,7 +15,7 @@ const Logout = () => {
     localStorage.removeItem("token");
     delete Instance.defaults.headers.common["Authorization"];
     setIsLogin(false);
-    //navigate("/login");
+    navigate("/login");
   }, [setIsLogin, navigate]);
 
   return <>logout</>;

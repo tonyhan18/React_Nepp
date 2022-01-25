@@ -29,6 +29,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { success, token } = await getToken(loginInfo);
+
+    console.log(success, token);
     if (success) {
       localStorage.token = token;
       Instance.defaults.headers.common["Authorization"] = token;
