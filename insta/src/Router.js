@@ -1,17 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Signup, Main, Login, Logout } from "./componentas/pages/";
-import { LoginCheck } from "./componentas/organisms";
+import { TopNav, LoginCheck } from "./componentas/organisms/index";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginCheck />}>
-          <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={<TopNav />}>
+            <Route path="/" element={<Main />} />
+          </Route>
+          <Route path="/logout" element={<Logout />} />
         </Route>
-        <Route path="/logout" element={<Logout />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );

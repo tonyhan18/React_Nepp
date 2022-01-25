@@ -11,14 +11,10 @@ const LoginCheck = () => {
 
   useEffect(() => {
     if (!isLogin) {
-      //navigate("/login");
+      navigate("/login");
     }
   }, [isLogin, navigate]);
-  return (
-    <>
-      <Outlet />
-    </>
-  );
+  return <Outlet />;
 };
 
 export default LoginCheck;
