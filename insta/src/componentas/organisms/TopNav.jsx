@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import {
@@ -8,8 +8,15 @@ import {
   IconExplore,
   IconNewPost,
 } from "../../assets/images/icons/index";
+import { ModalAddPost } from "./modals";
 
 function TopNav() {
+  const [showModalAddPost, setShowModalAddPost] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = showModalAddPost ? "hidden" : "";
+  }, [showModalAddPost]);
+
   return (
     <div>
       <Header>
@@ -28,7 +35,7 @@ function TopNav() {
               <IconDirect />
             </IconWrapper>
             <IconWrapper>
-              <IconNewPost />
+              <IconNewPost onClick={() => setShowModalAddPost(true)} />
             </IconWrapper>
             <IconWrapper>
               <IconExplore />
@@ -45,6 +52,9 @@ function TopNav() {
       <OutletWrapper>
         <Outlet />
       </OutletWrapper>
+      {showModalAddPost && (
+        <ModalAddPost onClose={() => setShowModalAddPost(false)} />
+      )}
     </div>
   );
 }

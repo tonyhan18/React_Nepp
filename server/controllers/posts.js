@@ -8,7 +8,8 @@ export const getPostsMain = async (req, res) => {
 		JOIN image ON image.post_id = post.id
 		JOIN user ON user.id = post.user_id
 		GROUP BY post.id
-		ORDER BY post.created_at DESC;
+		ORDER BY post.created_at DESC
+		LIMIT 15;
 		`;
   const [rows] = await conn.query(query);
   const postList = rows.map((post) => {

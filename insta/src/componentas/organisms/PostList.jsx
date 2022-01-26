@@ -19,7 +19,7 @@ const PostList = ({ data }) => {
             </Header>
             <Main>
               {imageList.map((image) => (
-                <PostImage src={image} />
+                <PostImage key={image} src={image} />
               ))}
             </Main>
           </Container>
