@@ -36,14 +36,24 @@ function TopNav() {
             <IconWrapper>
               <IconActivity />
             </IconWrapper>
+            <IconWrapper>
+              <Link to="/Logout">Logout</Link>
+            </IconWrapper>
           </Nav>
         </Main>
       </Header>
-      <Outlet />
+      <OutletWrapper>
+        <Outlet />
+      </OutletWrapper>
     </div>
   );
 }
 
+const OutletWrapper = styled.div`
+  margin-top: 70px;
+  height: 100vh;
+  background: #fafafa;
+`;
 const Header = styled.header`
   position: fixed;
   top: 0%;
