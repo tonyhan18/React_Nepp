@@ -6,7 +6,6 @@ const ModalAddPost = ({ onClose }) => {
   const fileEl = useRef(null);
   return (
     <>
-      <Backdrop onClick={onClose} />
       <Container>
         <Header>새 게시물 만들기</Header>
         <Main>
@@ -17,6 +16,7 @@ const ModalAddPost = ({ onClose }) => {
           <InputFile type="file" ref={useRef} />
         </Main>
       </Container>
+      <Backdrop onClick={onClose} />
     </>
   );
 };
@@ -38,7 +38,7 @@ const Main = styled.main``;
 const Guide = styled.h4``;
 const BtnFile = styled.button``;
 const InputFile = styled.input`
-  display: hidden;
+  //display: hidden;
 `;
 
 export default ModalAddPost;

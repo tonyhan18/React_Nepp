@@ -11,7 +11,7 @@ import {
 import { ModalAddPost } from "./modals";
 
 function TopNav() {
-  const [showModalAddPost, setShowModalAddPost] = useState(false);
+  const [showModalAddPost, setShowModalAddPost] = useState(true);
 
   useEffect(() => {
     document.body.style.overflow = showModalAddPost ? "hidden" : "";
