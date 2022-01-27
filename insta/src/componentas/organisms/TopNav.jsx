@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import {
@@ -8,10 +8,11 @@ import {
   IconExplore,
   IconNewPost,
 } from "../../assets/images/icons/index";
-import { ModalAddPost } from "./modals";
+import ModalAddPost from "./modals/AddPost";
 
 function TopNav() {
   const [showModalAddPost, setShowModalAddPost] = useState(false);
+  const homeRef = useRef(null);
 
   useEffect(() => {
     document.body.style.overflow = showModalAddPost ? "hidden" : "";
@@ -29,7 +30,8 @@ function TopNav() {
           </SearchWrapper>
           <Nav>
             <IconWrapper>
-              <IconHome />
+              <IconHome onClick={() => homeRef.current.click()} />
+              <Link to="/" ref={homeRef} />
             </IconWrapper>
             <IconWrapper>
               <IconDirect />
