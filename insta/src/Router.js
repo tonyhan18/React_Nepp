@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Signup, Main, Login, Logout } from "./componentas/pages/";
-import { TopNav, LoginCheck } from "./componentas/organisms/index";
+import { Signup, Main, Login, Logout } from "./components/pages/";
+import { TopNav, LoginCheck } from "./components/organisms/index";
 
 const Router = () => {
   return (
