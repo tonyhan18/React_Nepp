@@ -5,6 +5,17 @@ import { IconPost } from "assets/images/icons/index";
 
 const ModalAddPost = ({ onClose }) => {
   const fileEl = useRef(null);
+
+  const handleFileChange = (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const preview = reader.result;
+      console.log(preview);
+    };
+    reader.readAsDataURL(file);
+  };
   return (
     <>
       <Backdrop onClick={onClose} />
@@ -20,7 +31,12 @@ const ModalAddPost = ({ onClose }) => {
           >
             컴퓨터에서 선택
           </BtnFile>
-          <InputFile type="file" ref={fileEl} />
+          <InputFile
+            onChange={handleFileChange}
+            type="file"
+            ref={fileEl}
+            accept="image/*"
+          />
         </Main>
       </Container>
     </>
@@ -54,7 +70,14 @@ const Guide = styled.h4`
   font-weight: lighter;
   font-size: 22px;
 `;
-const BtnFile = styled.button``;
+const BtnFile = styled.button`
+  padding: 5px 9px;
+  color: #fff;
+  background-color: #0095f6;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+`;
 const InputFile = styled.input`
   display: none;
 `;
