@@ -5,3 +5,8 @@ export const getPostList = async () => {
   //console.log(data);
   return data;
 };
+
+export const addPost = async (params) => {
+  const { data } = await Instance.post("/posts", params);
+  return data;
+};
