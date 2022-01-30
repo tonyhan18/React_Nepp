@@ -1,9 +1,5 @@
-export const state = () => ({ email: null, nickname: null });
+export const state = {};
 
-export const mutations = {
-  SET_USER(state, { email, nickname }) {
-    (state.email = email), (state.nickname = nickname);
-  },
-};
+export const mutations = {};
 
 export const actions = {};

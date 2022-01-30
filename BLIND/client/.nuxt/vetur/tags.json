@@ -1,21 +1,10 @@
 {
-  "Foot": {
-    "description": "Auto imported from components/Foot.vue"
-  },
-  "GlobalArticleCard": {
-    "description": "Auto imported from components/GlobalArticleCard.vue"
-  },
-  "GNB": {
-    "description": "Auto imported from components/GNB.vue"
-  },
   "NuxtLogo": {
     "description": "Auto imported from components/NuxtLogo.vue"
   },
-  "SearchBar": {
-    "description": "Auto imported from components/SearchBar.vue"
-  },
   "Tutorial": {
     "description": "Auto imported from components/Tutorial.vue"
+<<<<<<< HEAD
   },
   "ArticleBreadcrumb": {
     "description": "Auto imported from components/Article/Breadcrumb.vue"
@@ -70,5 +59,7 @@
   },
   "MainRealtimeFamousCompany": {
     "description": "Auto imported from components/Main/RealtimeFamousCompany.vue"
+=======
+>>>>>>> parent of 80c024e (0130)
   }
 }

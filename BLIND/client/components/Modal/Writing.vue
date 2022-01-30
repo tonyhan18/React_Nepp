@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <template>
   <div v-if="modal.writing" class="modal-outside">
     <div id="writing-modal">
@@ -233,3 +234,5 @@ export default {
   }
 }
 </style>
+=======
+>>>>>>> parent of 80c024e (0130)

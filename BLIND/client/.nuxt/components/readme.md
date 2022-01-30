@@ -6,12 +6,9 @@ You can directly use them in pages and other components without the need to impo
 
 **Tip:** If a component is conditionally rendered with `v-if` and is big, it is better to use `Lazy` or `lazy-` prefix to lazy load.
 
-- `<Foot>` | `<foot>` (components/Foot.vue)
-- `<GlobalArticleCard>` | `<global-article-card>` (components/GlobalArticleCard.vue)
-- `<GNB>` | `<g-n-b>` (components/GNB.vue)
 - `<NuxtLogo>` | `<nuxt-logo>` (components/NuxtLogo.vue)
-- `<SearchBar>` | `<search-bar>` (components/SearchBar.vue)
 - `<Tutorial>` | `<tutorial>` (components/Tutorial.vue)
+<<<<<<< HEAD
 - `<ArticleBreadcrumb>` | `<article-breadcrumb>` (components/Article/Breadcrumb.vue)
 - `<ArticleCommentCard>` | `<article-comment-card>` (components/Article/CommentCard.vue)
 - `<ArticleCommentList>` | `<article-comment-list>` (components/Article/CommentList.vue)
@@ -30,3 +27,5 @@ You can directly use them in pages and other components without the need to impo
 - `<MainBestBoardCard>` | `<main-best-board-card>` (components/Main/BestBoardCard.vue)
 - `<MainBoardCard>` | `<main-board-card>` (components/Main/BoardCard.vue)
 - `<MainRealtimeFamousCompany>` | `<main-realtime-famous-company>` (components/Main/RealtimeFamousCompany.vue)
+=======
+>>>>>>> parent of 80c024e (0130)

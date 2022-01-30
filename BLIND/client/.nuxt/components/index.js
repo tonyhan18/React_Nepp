@@ -1,9 +1,6 @@
-export { default as Foot } from '../..\\components\\Foot.vue'
-export { default as GlobalArticleCard } from '../..\\components\\GlobalArticleCard.vue'
-export { default as GNB } from '../..\\components\\GNB.vue'
 export { default as NuxtLogo } from '../..\\components\\NuxtLogo.vue'
-export { default as SearchBar } from '../..\\components\\SearchBar.vue'
 export { default as Tutorial } from '../..\\components\\Tutorial.vue'
+<<<<<<< HEAD
 export { default as ArticleBreadcrumb } from '../..\\components\\Article\\Breadcrumb.vue'
 export { default as ArticleCommentCard } from '../..\\components\\Article\\CommentCard.vue'
 export { default as ArticleCommentList } from '../..\\components\\Article\\CommentList.vue'
@@ -22,6 +19,8 @@ export { default as SearchResultCompanyInfoCard } from '../..\\components\\Searc
 export { default as MainBestBoardCard } from '../..\\components\\Main\\BestBoardCard.vue'
 export { default as MainBoardCard } from '../..\\components\\Main\\BoardCard.vue'
 export { default as MainRealtimeFamousCompany } from '../..\\components\\Main\\RealtimeFamousCompany.vue'
+=======
+>>>>>>> parent of 80c024e (0130)
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

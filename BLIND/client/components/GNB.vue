@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <template>
   <div class="nav-container">
     <nav>
@@ -119,3 +120,5 @@ nav {
   }
 }
 </style>
+=======
+>>>>>>> parent of 80c024e (0130)
