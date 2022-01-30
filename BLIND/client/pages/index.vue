@@ -1,9 +1,9 @@
 <template>
-  <Tutorial/>
+  <div>
+    <GNB />
+  </div>
 </template>
 
 <script>
-export default {
-  name: 'IndexPage'
-}
+export default {};
 </script>

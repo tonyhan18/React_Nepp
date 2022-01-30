@@ -5,7 +5,7 @@ var router = express.Router();
 // 로그인 요청
 router.post("/user/login", async (req, res) => {
   const { email, password } = req.body;
-  const loginUser = await User.find({ email: email });
+  const loginUser = await User.findOne({ email: email });
   if (!loginUser._id) {
     return res.send({
       error: true,
@@ -19,7 +19,11 @@ router.post("/user/login", async (req, res) => {
       msg: "비밀번호 불일치",
     });
   }
-  res.send({ email: loginUser.email, nickname: loginUser.nickname });
+  return res.send({
+    email: loginUser.email,
+    nickname: loginUser.nickname,
+    error: false,
+  });
 });
 
 router.post("/user/create", async (req, res) => {

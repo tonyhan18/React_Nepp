@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const { article, company, comment, user, board, reply } = require("./routes");
 const app = express();
-const PORT = 3000;
+const PORT = 8000;
 
 app.use(cors());
 app.use(express.json()); // POST가 왔을때 req.body에 담개해준다.
