@@ -14,10 +14,10 @@ export { default as CompanyCard } from '../..\\components\\CompanyReview\\Compan
 export { default as CompanyReviewHeroSection } from '../..\\components\\CompanyReview\\HeroSection.vue'
 export { default as CompanyReviewSection } from '../..\\components\\CompanyReview\\ReviewSection.vue'
 export { default as GNBSmallSearchbar } from '../..\\components\\GNB\\SmallSearchbar.vue'
-export { default as MainBoardCard } from '../..\\components\\main\\BoardCard.vue'
-export { default as MainRealtimeFamousCompany } from '../..\\components\\main\\RealtimeFamousCompany.vue'
 export { default as ModalLogin } from '../..\\components\\Modal\\Login.vue'
 export { default as ModalWriting } from '../..\\components\\Modal\\Writing.vue'
+export { default as MainBoardCard } from '../..\\components\\Main\\BoardCard.vue'
+export { default as MainRealtimeFamousCompany } from '../..\\components\\Main\\RealtimeFamousCompany.vue'
 export { default as SearchResultCompanyInfoCard } from '../..\\components\\SearchResult\\CompanyInfoCard.vue'
 
 // nuxt/nuxt.js#8607

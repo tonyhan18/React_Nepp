@@ -4,10 +4,15 @@ const cors = require("cors");
 const { article, company, comment, user, board, reply } = require("./routes");
 const app = express();
 const PORT = 8000;
+const SECRET = "THISISSECRET";
 
 app.use(cors());
 app.use(express.json()); // POST가 왔을때 req.body에 담개해준다.
 app.use(express.urlencoded({ extended: true })); //?
+
+// JWT 시크릿 설정
+app.set("jwt-secret", SECRET);
+
 // 기능별 라우터 추가
 app.use(article);
 app.use(company);

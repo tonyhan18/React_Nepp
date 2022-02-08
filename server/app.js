@@ -1,24 +1,26 @@
-import createError from "http-errors";
-import express from "express";
-import path from "path";
-import cookieParser from "cookie-parser";
-import logger from "morgan";
-import cors from "cors";
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const cors = require("cors");
 
-import indexRouter from "./routes/index.js";
-import usersRouter from "./routes/users.js";
-import postsRouter from "./routes/posts.js";
-import uploadRouter from "./routes/upload.js";
+const indexRouter = require("./routes/index.js");
+const usersRouter = require("./routes/user.js");
+const boardsRouter = require("./routes/board.js");
+const uploadRouter = require("./routes/upload.js");
+const articleRouter = require("./routes/article.js");
+const secretKey = "THISISSECRET";
 
-const __dirname = path.resolve();
+//const __dirname = path.resolve();
 let app = express();
+
+// Token Secret Key
+app.set("jwt-secret", secretKey);
 
 app.use(cors({ origin: "http://localhost:3000" }));
 // view engine setup
 // view control
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -26,10 +28,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // route control
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/posts", postsRouter);
-app.use("/upload", uploadRouter);
+//app.use("/", indexRouter);
+app.use("/user", usersRouter);
+//app.use("/article", articleRouter);
+app.use("/board", boardsRouter);
+// app.use("/upload", uploadRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -47,4 +50,4 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-export default app;
+module.exports = app;

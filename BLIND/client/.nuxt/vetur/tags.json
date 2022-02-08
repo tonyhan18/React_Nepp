@@ -47,17 +47,17 @@
   "GNBSmallSearchbar": {
     "description": "Auto imported from components/GNB/SmallSearchbar.vue"
   },
-  "MainBoardCard": {
-    "description": "Auto imported from components/main/BoardCard.vue"
-  },
-  "MainRealtimeFamousCompany": {
-    "description": "Auto imported from components/main/RealtimeFamousCompany.vue"
-  },
   "ModalLogin": {
     "description": "Auto imported from components/Modal/Login.vue"
   },
   "ModalWriting": {
     "description": "Auto imported from components/Modal/Writing.vue"
+  },
+  "MainBoardCard": {
+    "description": "Auto imported from components/Main/BoardCard.vue"
+  },
+  "MainRealtimeFamousCompany": {
+    "description": "Auto imported from components/Main/RealtimeFamousCompany.vue"
   },
   "SearchResultCompanyInfoCard": {
     "description": "Auto imported from components/SearchResult/CompanyInfoCard.vue"

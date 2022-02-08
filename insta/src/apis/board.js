@@ -1,8 +1,8 @@
 import { Instance } from "./index";
 
-export const getPostList = async () => {
-  const { data } = await Instance.get("/posts/main");
-  //console.log(data);
+export const getBoardList = async () => {
+  const data = await Instance.get("/board/main");
+  console.log(data);
   return data;
 };
 

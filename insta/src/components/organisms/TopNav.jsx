@@ -1,14 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
-import {
-  IconHome,
-  IconActivity,
-  IconDirect,
-  IconExplore,
-  IconNewPost,
-} from "../../assets/images/icons/index";
 import ModalAddPost from "./modals/AddPost";
+import logo from "../../assets/logo/logo.png";
 
 function TopNav() {
   const [showModalAddPost, setShowModalAddPost] = useState(false);
@@ -22,32 +16,26 @@ function TopNav() {
     <div>
       <Header>
         <Main>
-          <Link to="/">
-            <ImgLogo src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png" />
-          </Link>
-          <SearchWrapper>
-            <InputSearch plceholder="검색" />
-          </SearchWrapper>
           <Nav>
-            <IconWrapper>
-              <IconHome onClick={() => homeRef.current.click()} />
-              <Link to="/" ref={homeRef} />
-            </IconWrapper>
-            <IconWrapper>
-              <IconDirect />
-            </IconWrapper>
-            <IconWrapper>
-              <IconNewPost onClick={() => setShowModalAddPost(true)} />
-            </IconWrapper>
-            <IconWrapper>
-              <IconExplore />
-            </IconWrapper>
-            <IconWrapper>
-              <IconActivity />
-            </IconWrapper>
-            <IconWrapper>
-              <Link to="/Logout">Logout</Link>
-            </IconWrapper>
+            <SideBlock>
+              <Link to="/">
+                <ImgLogo src={logo} />
+              </Link>
+              <Link to="/">홈</Link>
+              <Link to="/free">익명</Link>
+            </SideBlock>
+            <SideBlock>
+              <WriteBtn
+                onClick={() => {
+                  setShowModalAddPost(true);
+                }}
+              >
+                글쓰기
+              </WriteBtn>
+              <Link to="/logout">
+                <LoginBtn>로그아웃</LoginBtn>
+              </Link>
+            </SideBlock>
           </Nav>
         </Main>
       </Header>
@@ -61,58 +49,87 @@ function TopNav() {
   );
 }
 
-const OutletWrapper = styled.div`
-  margin-top: 70px;
-  height: 100vh;
-  background: #fafafa;
-`;
 const Header = styled.header`
-  position: fixed;
-  top: 0%;
-  width: 100%;
-  background-color: white;
-  border-bottom: 1px solid #dbdbdb;
+  border-bottom: 1px solid #d4d4d4;
 `;
-const Main = styled.main`
+const Main = styled.main``;
+const Nav = styled.nav`
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin: 0 auto;
-  height: 54px;
-  max-width: 975px;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  margin: auto;
+  padding: 0 20px;
+  max-width: 1100px;
 `;
 const ImgLogo = styled.img`
   width: 104px;
   vertical-align: bottom;
 `;
-const SearchWrapper = styled.div`
+const SideBlock = styled.div`
   display: flex;
-  align-items: center;
-  padding: 3px 16px;
-  box-sizing: border-box;
-  height: 36px;
-  min-width: 125px;
-  width: 268px;
-  background-color: #efefef;
-  border-radius: 8px;
-`;
-const InputSearch = styled.input`
-  background: transparent;
-  border: none;
-  width: 100%;
   height: 100%;
-`;
-const Nav = styled.nav`
-  display: flex;
-  justify-content: space-between;
-`;
-const IconWrapper = styled.div`
-  cursor: pointer;
-  display: flex;
   align-items: center;
-  & + & {
-    margin-left: 22px;
-  }
 `;
+const WriteBtn = styled.a`
+  background: rgb(218, 50, 56);
+  color: white;
+  font-size: 14px;
+  height: 40px;
+  margin-left: 10px;
+  width: 82px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  cursor: pointer;
+`;
+const LoginBtn = styled.a`
+  background: white;
+  color: rgb(34, 34, 34);
+  font-size: 14px;
+  border: solid 1px rgb(212, 212, 212);
+  height: 40px;
+  margin-left: 10px;
+  width: 82px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  cursor: pointer;
+`;
+
+const OutletWrapper = styled.div`
+  margin-top: 70px;
+  height: 100vh;
+  background: #fafafa;
+`;
+// const SearchWrapper = styled.div`
+//   display: flex;
+//   align-items: center;
+//   padding: 3px 16px;
+//   box-sizing: border-box;
+//   height: 36px;
+//   min-width: 125px;
+//   width: 268px;
+//   background-color: #efefef;
+//   border-radius: 8px;
+// `;
+// const InputSearch = styled.input`
+//   background: transparent;
+//   border: none;
+//   width: 100%;
+//   height: 100%;
+// `;
+
+// const IconWrapper = styled.div`
+//   cursor: pointer;
+//   display: flex;
+//   align-items: center;
+//   & + & {
+//     margin-left: 22px;
+//   }
+// `;
 
 export default TopNav;

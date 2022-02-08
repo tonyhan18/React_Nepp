@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { ModalContainer, Backdrop } from "../../atoms/modal";
-import { IconPost } from "assets/images/icons/index";
+import { IconPost } from "../../../assets/images/icons/index";
 import { uploadImage } from "../../../apis/upload";
-import { addPost } from "../../../apis/post";
+import { addPost } from "../../../apis/board";
 
 const ModalAddPost = ({ onClose }) => {
   const fileEl = useRef(null);

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
 import { addUser } from "../../apis/user";
 import {
   Box,
+  BtnSeoul,
   BtnSubmit,
   Form,
   InputText,
@@ -13,6 +13,7 @@ import {
   PageWrapper,
   SignupWrapper,
 } from "../atoms/login";
+import logo from "../../assets/logo/logo.png";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -29,15 +30,14 @@ const Signup = () => {
     const { password, passwordConfirm } = userInfo;
     if (password !== passwordConfirm) return alert("비밀번호가 같지 않습니다");
     if (password.length < 4) return alert("비밀번호가 너무 짧습니다");
-    const { success } = await addUser(userInfo);
-    console.log(success);
+    const { success, msg } = await addUser(userInfo);
     if (success) {
       // 회원가입 성공
       alert("회원가입 성공");
       navigate("/login");
     } else {
       // 회원가입 실패
-      alert("중복된 아이디 입니다.");
+      alert(msg);
     }
   };
 
@@ -45,12 +45,12 @@ const Signup = () => {
     <PageWrapper>
       <Main>
         <Box>
-          <Logo src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png" />
+          <Logo src={logo} />
           <Form onSubmit={handleSubmit}>
             <InputText
-              name="username"
-              placeholder="사용자이름"
-              value={userInfo.username}
+              name="email"
+              placeholder="이메일"
+              value={userInfo.email}
               onChange={handleChange}
             />
             <InputText
@@ -69,8 +69,7 @@ const Signup = () => {
             />
             <BtnSubmit>가입</BtnSubmit>
           </Form>
-          <FBLogin>Facebook으로 로그인</FBLogin>
-          <ForgotPassword>비밀번호를 잊으셨나요?</ForgotPassword>
+          <BtnSeoul>42Seoul로 로그인</BtnSeoul>
         </Box>
         <Box>
           <SignupWrapper>

@@ -1,8 +1,7 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useNavigate } from "../../../node_modules/react-router-dom/index";
-import { getToken } from "../../apis/user";
+import { tryLogin } from "../../apis/user";
 import {
   Box,
   BtnSubmit,
@@ -12,9 +11,11 @@ import {
   PageWrapper,
   SignupWrapper,
   Main,
+  BtnSeoul,
 } from "../atoms/login";
 import { Instance } from "../../apis/index.js";
-import UserContext from "../../contexts/user";
+import UserContext from "../../contexts/user.js";
+import logo from "../../assets/logo/logo.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,15 +29,17 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { success, token } = await getToken(loginInfo);
-    console.log(success, token);
+    const { success, token, msg } = await tryLogin(loginInfo);
     if (success) {
-      localStorage.token = token;
+      console.log(success, token, msg);
+      localStorage.setItem("token", token);
+      //localStorage.token = token;
       Instance.defaults.headers.common["Authorization"] = token;
-      setIsLogin(true);
+      setIsLogin({ success });
       navigate("/");
     } else {
-      alert("로그인 실패");
+      localStorage.removeItem("token");
+      alert(msg);
     }
   };
 
@@ -44,23 +47,25 @@ const Login = () => {
     <PageWrapper>
       <Main>
         <Box>
-          <Logo src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png" />
+          <Logo src={logo} />
           <Form onSubmit={handleSubmit}>
             <InputText
-              name="username"
-              placeholder="전화번호, 사용자 이름 또는 이메일"
+              name="email"
+              placeholder="이메일"
+              value={loginInfo.email}
               onChange={handleChange}
             />
             <InputText
               name="password"
               placeholder="비밀번호"
               type="password"
+              value={loginInfo.password}
               onChange={handleChange}
             />
             <BtnSubmit>로그인</BtnSubmit>
           </Form>
-          <FBLogin>Facebook으로 로그인</FBLogin>
-          <ForgotPassword>비밀번호를 잊으셨나요?</ForgotPassword>
+          <BtnSeoul>42Seoul로 로그인</BtnSeoul>
+          {/* <ForgotPassword>비밀번호를 잊으셨나요?</ForgotPassword> */}
         </Box>
         <Box>
           <SignupWrapper>
@@ -75,7 +80,7 @@ const Login = () => {
 const FBLogin = styled.div`
   margin: 10px 40px 18px;
   font-size: 14px;
-  color: #385185;
+  color: #ffc000;
   font-weight: bold;
 `;
 const ForgotPassword = styled.div`

@@ -41,8 +41,8 @@ export const InputText = styled.input`
 export const BtnSubmit = styled.button`
   margin: 8px 0;
   padding: 5px 9px;
-  background: #0095f6;
-  color: #fff;
+  background: #ffc000;
+  color: #000;
   border: transparent;
   border-radius: 4px;
   font-weight: bold;
@@ -52,8 +52,18 @@ export const SignupWrapper = styled.div`
   padding: 15px 0;
   font-size: 14px;
   a {
-    color: #0095f6;
+    color: #ffc000;
     text-decoration: none;
     font-weight: bold;
   }
+`;
+
+export const BtnSeoul = styled.button`
+  width: 77%;
+  padding: 6px 9px;
+  background: #2c2d2d;
+  color: #fff;
+  border: transparent;
+  border-radius: 4px;
+  font-weight: bold;
 `;
