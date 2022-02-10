@@ -29,13 +29,13 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { success, token, msg } = await tryLogin(loginInfo);
-    if (success) {
-      console.log(success, token, msg);
+    const { error, token, msg } = await tryLogin(loginInfo);
+    console.log(error, token, msg);
+    if (!error) {
       localStorage.setItem("token", token);
       //localStorage.token = token;
       Instance.defaults.headers.common["Authorization"] = token;
-      setIsLogin({ success });
+      setIsLogin(true);
       navigate("/");
     } else {
       localStorage.removeItem("token");

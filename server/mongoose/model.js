@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 const schema = require("./schema");
 
 const db = mongoose.connection;
-const model = (async () => {
+const model = (() => {
   db.on("error", console.error);
   db.on("open", () => {
     console.log("Connecting mongodb!");
   });
 
   // 몽고디비 앱 엑세스 주소
-  await mongoose.connect(
+  mongoose.connect(
     `mongodb+srv://root:B01383138hsh@cluster0.6upap.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
   );
 

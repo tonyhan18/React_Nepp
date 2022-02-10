@@ -10,16 +10,16 @@ const BestBoardCard = ({ key, title, slug, content }) => {
           <BoardIcon></BoardIcon>
           <h2>알럼 베스트</h2>
         </TitleSide>
-        <Link to={slug}>더보기 &gt</Link>
+        <Link to="/">더보기 +</Link>
       </Head>
       <Body>
         <ArticleList>
-          {content.map((a) => (
+          {/* {content.map((a) => (
             <li key={a.id}>
               <ArticleTitle>{a.title}</ArticleTitle>
               <ViewCount>{a.viewcount}</ViewCount>
             </li>
-          ))}
+          ))} */}
         </ArticleList>
       </Body>
     </Wrapper>

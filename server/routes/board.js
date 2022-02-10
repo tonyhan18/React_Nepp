@@ -1,15 +1,18 @@
 const express = require("express");
-const Article = require("../mongoose/schema/article");
-const Board = require("../mongoose/schema/board");
+const { Article } = require("../mongoose/model");
+const { Board } = require("../mongoose/model");
 let router = express.Router();
 
-const getBoard = async (req, res, next) => {
+router.get("/board/main", async (req, res, next) => {
   const board = await Board.find();
-  if (Array.isArray(board)) {
-    res.send({ error: true, msg: "게시판을 발견할 수 없음" });
+  if (!Array.isArray(board)) {
+    res.send({
+      error: true,
+      msg: "게시판을 발견할 수 없음",
+    });
   }
-  let mainContent = {};
 
+  let mainContent = [];
   Promise.all(
     board.map(async (b) => {
       const recentArticles = await Article.find({ board: b._id });
@@ -17,18 +20,12 @@ const getBoard = async (req, res, next) => {
         return;
       }
       mainContent.push({
-        ...b.doc,
+        ...b._doc,
         content: recentArticles,
       });
     })
   )
-    .then((res) => {
-      // const content = Object.keys(mainContent.map((v)=>{
-      // 	return {
-      // 		slug:v,
-      // 		content: mainContent(v)
-      // 	}
-      // }))
+    .then(() => {
       res.send({
         content: mainContent,
         error: false,
@@ -38,19 +35,57 @@ const getBoard = async (req, res, next) => {
     .catch((err) => {
       console.error(err);
       res.send({
+        content: null,
         error: true,
         msg: "서버 에러",
       });
     });
-};
+  // let mainContent = [];
+  // Promise.all(
+  //   board.map(async (b) => {
+  //     const recentArticles = await Article.find({ board: b._id });
+  //     if (!Array.isArray(recentArticles)) {
+  //       return;
+  //     }
+  //     // mainContent[b.slug] = recentArticles;
+  //     // return;
+  //     mainContent.push({
+  //       ...b,
+  //       content: recentArticles,
+  //     });
+  //     return;
+  //   })
+  // )
+  //   .then(() => {
+  //     // const content = Object.keys(mainContent).map((v) => {
+  //     //   return {
+  //     //     slug: v,
+  //     //     content: mainContent[v],
+  //     //   };
+  //     // });
+  //     res.send({
+  //       content: mainContent, //content,
+  //       error: false,
+  //       msg: "성공",
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //     res.send({
+  //       content: null,
+  //       error: true,
+  //       msg: "서버 에러",
+  //     });
+  //   });
+});
 
-const getBoardList = async (req, res) => {
+router.get("/board/list", async (req, res) => {
   const board = await Board.find();
   res.send(board);
-};
+});
 
 // 게시판별 게시글을 가져오는 라우트
-const getBoardSlug = async (req, res) => {
+router.get("/board/:slug", async (req, res) => {
   const { slug } = req.params;
   const { lastIndex } = req.query; // 무한 스크롤 구현시 사용할 부분
 
@@ -91,10 +126,10 @@ const getBoardSlug = async (req, res) => {
     };
   });
   res.send({ article: formatedArtilce, error: false, msg: "성공" });
-};
+});
 
 // 관리자: 게시판 추가
-const postBoardCreate = async (req, res) => {
+router.post("/board/create", async (req, res) => {
   const { title, slug } = req.body;
   const newBoard = await Board({
     title,
@@ -102,12 +137,6 @@ const postBoardCreate = async (req, res) => {
   }).save();
 
   res.send(newBoard._id ? true : false);
-};
-
-router.get("/main", getBoard);
-router.get("/list", getBoardList);
-router.get("/:slug", getBoardSlug);
-router.post("/create", postBoardCreate);
-//router.get("/main", getPostsMain);
+});
 
 module.exports = router;

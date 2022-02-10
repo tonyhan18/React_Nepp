@@ -22,7 +22,7 @@ function TopNav() {
                 <ImgLogo src={logo} />
               </Link>
               <Link to="/">홈</Link>
-              <Link to="/free">익명</Link>
+              <Link to="/">익명</Link>
             </SideBlock>
             <SideBlock>
               <WriteBtn

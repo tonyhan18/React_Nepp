@@ -2,7 +2,7 @@ import { Instance } from "./index";
 
 export const getBoardList = async () => {
   const data = await Instance.get("/board/main");
-  console.log(data);
+  //console.log(data);
   return data;
 };
 

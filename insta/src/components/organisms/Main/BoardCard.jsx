@@ -2,24 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const BoardCard = ({ key, title, slug, content }) => {
+const BoardCard = (params) => {
+  console.log(params);
+  //console.log(key, title, slug);
   return (
     <Wrapper>
       <Head>
         <TitleSide>
           <BoardIcon></BoardIcon>
-          <h2>{title}</h2>
+          <h2>aa</h2>
         </TitleSide>
-        <Link to={slug}>더보기 &gt</Link>
+        <Link to="/">더보기 +</Link>
       </Head>
       <Body>
         <ArticleList>
-          {content.map((a) => (
+          {/* {content.map((a) => (
             <li key={a.id}>
               <ArticleTitle>{a.title}</ArticleTitle>
               <ViewCount>{a.viewcount}</ViewCount>
             </li>
-          ))}
+          ))} */}
         </ArticleList>
       </Body>
     </Wrapper>
