@@ -4,7 +4,7 @@ import styled from "styled-components";
 const SearchBarBlock = styled.div``;
 
 const SearchBar = () => {
-  return <SearchBarBlock>AuthForm</SearchBarBlock>;
+  return <SearchBarBlock>SearchBar</SearchBarBlock>;
 };
 
 export default SearchBar;

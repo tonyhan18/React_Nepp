@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { FiThumbsUp } from "react-icons/fi";
+import { BiComment } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import {
+  ArticleList,
+  ArticleTitle,
+  BoardIcon,
+  Body,
+  CountDisplay,
+  CountIcon,
+  CountItem,
+  Head,
+  TitleSide,
+  Wrapper,
+} from "../../atoms/board";
+import { getBoardList } from "../../../apis/board";
 
-const BestBoardCard = ({ key, title, slug, content }) => {
+const BestBoardCard = ({ title, slug, articleList }) => {
+  const [boardList, setBoardList] = useState({});
+  useEffect(() => {
+    (async () => {
+      const data = await getBoardList();
+      console.log(data);
+      //setBoardList(data.content);
+    })();
+  }, []);
   return (
     <Wrapper>
       <Head>
@@ -14,46 +37,25 @@ const BestBoardCard = ({ key, title, slug, content }) => {
       </Head>
       <Body>
         <ArticleList>
-          {/* {content.map((a) => (
-            <li key={a.id}>
+          {articleList.map((a) => (
+            <li key={a.id + a.slug}>
               <ArticleTitle>{a.title}</ArticleTitle>
-              <ViewCount>{a.viewcount}</ViewCount>
+              <CountDisplay>
+                <CountItem>
+                  <FiThumbsUp size="16" className="icon" />
+                  <span>10</span>
+                </CountItem>
+                <CountItem>
+                  <BiComment size="16" className="icon" />
+                  <span>10</span>
+                </CountItem>
+              </CountDisplay>
             </li>
-          ))} */}
+          ))}
         </ArticleList>
       </Body>
     </Wrapper>
   );
 };
-
-const Wrapper = styled.div``;
-const Head = styled.head`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-const TitleSide = styled.div``;
-const BoardIcon = styled.div``;
-const Body = styled.head``;
-const ArticleList = styled.ul`
-  padding-left: 0;
-  li {
-    padding-top: 9px;
-    list-style: none;
-    display: flex;
-  }
-`;
-const ArticleTitle = styled.span`
-  display: inline-block;
-  width: calc(100% - 80px);
-  line-height: 20px;
-  color: #222;
-`;
-const ViewCount = styled.span`
-  display: inline-block;
-  width: 80px;
-  line-height: 20px;
-  color: #222;
-`;
 
 export default BestBoardCard;

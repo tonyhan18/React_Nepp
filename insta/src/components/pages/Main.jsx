@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 //import { PostList } from "../organisms";
-import { getBoardList } from "../../apis/board";
+import { getRecentBoardArticleList } from "../../apis/board";
 import { BestBoardCard, BoardCard, Searchbar } from "../organisms/Main";
 
 const Main = () => {
   const [mainContent, setMainContent] = useState([]);
   useEffect(() => {
     (async () => {
-      const { data } = await getBoardList();
-      console.log("content");
-      console.log(data);
-      console.log(data.content);
-      console.log(data.content[0]);
-      // console.log(data.content[0]._doc);
-      // console.log(data.content[0].content);
+      const { data } = await getRecentBoardArticleList();
 
       if (data.error) {
         return;
@@ -27,10 +21,30 @@ const Main = () => {
     <MainContainer>
       <MainContent>
         <Searchbar />
-        <BestBoardCard />
+        {mainContent.map((b) => (
+          <BestBoardCard
+            key={b.slug}
+            title={b.title}
+            slug={b.slug}
+            articleList={b.content}
+          />
+        ))}
         <BoardCardContainer>
           {mainContent.map((b) => (
-            <BoardCard key={b.slug} title={b.title} slug={b.slug} />
+            <BoardCard
+              key={b.slug}
+              title={b.title}
+              slug={b.slug}
+              articleList={b.content}
+            />
+          ))}
+          {mainContent.map((b) => (
+            <BoardCard
+              key={b.slug}
+              title={b.title}
+              slug={b.slug}
+              articleList={b.content}
+            />
           ))}
         </BoardCardContainer>
       </MainContent>
@@ -43,7 +57,7 @@ const MainContainer = styled.div`
   display: flex;
   max-width: 1100px;
 `;
-const MainContent = styled.main`
+const MainContent = styled.div`
   width: 100%;
   max-width: 736px;
 `;
@@ -51,7 +65,7 @@ const BoardCardContainer = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 45px 20px;
+  grid-gap: 45px 40px;
 `;
 
 export default Main;

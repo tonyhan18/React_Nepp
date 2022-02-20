@@ -101,7 +101,7 @@ const LoginBtn = styled.a`
 `;
 
 const OutletWrapper = styled.div`
-  margin-top: 70px;
+  //margin-top: 70px;
   height: 100vh;
   background: #fafafa;
 `;

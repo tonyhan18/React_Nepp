@@ -40,43 +40,6 @@ router.get("/board/main", async (req, res, next) => {
         msg: "서버 에러",
       });
     });
-  // let mainContent = [];
-  // Promise.all(
-  //   board.map(async (b) => {
-  //     const recentArticles = await Article.find({ board: b._id });
-  //     if (!Array.isArray(recentArticles)) {
-  //       return;
-  //     }
-  //     // mainContent[b.slug] = recentArticles;
-  //     // return;
-  //     mainContent.push({
-  //       ...b,
-  //       content: recentArticles,
-  //     });
-  //     return;
-  //   })
-  // )
-  //   .then(() => {
-  //     // const content = Object.keys(mainContent).map((v) => {
-  //     //   return {
-  //     //     slug: v,
-  //     //     content: mainContent[v],
-  //     //   };
-  //     // });
-  //     res.send({
-  //       content: mainContent, //content,
-  //       error: false,
-  //       msg: "성공",
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     console.error(err);
-  //     res.send({
-  //       content: null,
-  //       error: true,
-  //       msg: "서버 에러",
-  //     });
-  //   });
 });
 
 router.get("/board/list", async (req, res) => {
