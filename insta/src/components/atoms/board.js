@@ -11,7 +11,14 @@ export const Head = styled.div`
     line-height: 43px;
   }
 `;
-export const TitleSide = styled.div``;
+export const TitleSide = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h2 {
+    margin-left: 5px;
+  }
+`;
 export const BoardIcon = styled.div``;
 export const BoardLink = styled(Link)`
   position: relative;

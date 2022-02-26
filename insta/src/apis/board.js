@@ -6,8 +6,7 @@ export const getRecentBoardArticleList = async () => {
 };
 
 export const getBoardList = async () => {
-  const data = await Instance.get("/board/list");
-  console.log(data);
+  const { data } = await Instance.get("/board/list");
   if (!Array.isArray(data)) {
     return;
   }

@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 //import { PostList } from "../organisms";
 import { getRecentBoardArticleList } from "../../apis/board";
-import { BestBoardCard, BoardCard, Searchbar } from "../organisms/Main";
+import {
+  BestBoardCard,
+  BoardCard,
+  Searchbar,
+  RealtimeFamousCompany,
+} from "../organisms/Main";
 
 const Main = () => {
   const [mainContent, setMainContent] = useState([]);
@@ -48,6 +53,7 @@ const Main = () => {
           ))}
         </BoardCardContainer>
       </MainContent>
+      <RealtimeFamousCompany />
     </MainContainer>
   );
 };

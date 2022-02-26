@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FiThumbsUp } from "react-icons/fi";
 import { BiComment } from "react-icons/bi";
+import { AiOutlineCrown } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
@@ -9,7 +10,6 @@ import {
   BoardIcon,
   Body,
   CountDisplay,
-  CountIcon,
   CountItem,
   Head,
   TitleSide,
@@ -22,15 +22,17 @@ const BestBoardCard = ({ title, slug, articleList }) => {
   useEffect(() => {
     (async () => {
       const data = await getBoardList();
-      console.log(data);
-      //setBoardList(data.content);
+      //console.log(data);
+      data.forEach((v) => {
+        setBoardList({ ...boardList, [v._id]: v.title });
+      });
     })();
   }, []);
   return (
     <Wrapper>
       <Head>
         <TitleSide>
-          <BoardIcon></BoardIcon>
+          <AiOutlineCrown size="30" />
           <h2>알럼 베스트</h2>
         </TitleSide>
         <Link to="/">더보기 +</Link>
@@ -39,15 +41,18 @@ const BestBoardCard = ({ title, slug, articleList }) => {
         <ArticleList>
           {articleList.map((a) => (
             <li key={a.id + a.slug}>
-              <ArticleTitle>{a.title}</ArticleTitle>
+              <ArticleTitle>
+                <BoardTag>{boardList[a.board]}</BoardTag>
+                <span>{a.title}</span>
+              </ArticleTitle>
               <CountDisplay>
                 <CountItem>
                   <FiThumbsUp size="16" className="icon" />
-                  <span>10</span>
+                  <span>{a.thumbupCount}</span>
                 </CountItem>
                 <CountItem>
                   <BiComment size="16" className="icon" />
-                  <span>10</span>
+                  <span>{a.commentCount}</span>
                 </CountItem>
               </CountDisplay>
             </li>
@@ -57,5 +62,16 @@ const BestBoardCard = ({ title, slug, articleList }) => {
     </Wrapper>
   );
 };
+
+const BoardTag = styled.span`
+  position: relative;
+  top: -2px;
+  margin-right: 6px;
+  padding: 2px;
+  font-size: 12px;
+
+  color: #94969b;
+  border: solid 1px #94969b;
+`;
 
 export default BestBoardCard;

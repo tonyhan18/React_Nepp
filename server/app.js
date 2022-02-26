@@ -5,11 +5,11 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 
-const indexRouter = require("./routes/index.js");
 const usersRouter = require("./routes/user.js");
 const boardsRouter = require("./routes/board.js");
 const uploadRouter = require("./routes/upload.js");
 const articleRouter = require("./routes/article.js");
+const companyRouter = require("./routes/company.js");
 const secretKey = "THISISSECRET";
 
 //const __dirname = path.resolve();
@@ -32,6 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(usersRouter);
 //app.use("/article", articleRouter);
 app.use(boardsRouter);
+app.use(companyRouter);
 // app.use("/upload", uploadRouter);
 
 // catch 404 and forward to error handler
