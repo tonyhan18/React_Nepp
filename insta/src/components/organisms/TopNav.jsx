@@ -1,16 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import ModalAddPost from "./modals/AddPost";
 import logo from "../../assets/logo/logo.png";
+import Writing from "./modals/Writing";
+import WritingModalContext from "../../contexts/WritingModalContext";
 
 function TopNav() {
-  const [showModalAddPost, setShowModalAddPost] = useState(false);
-  const homeRef = useRef(null);
+  //const [showModalAddPost, setShowModalAddPost] = useState(false);
+  const [isShowWritingModal, setIsShowWritingModal] = useState(false);
 
-  useEffect(() => {
-    document.body.style.overflow = showModalAddPost ? "hidden" : "";
-  }, [showModalAddPost]);
+  // useEffect(() => {
+  //   document.body.style.overflow = isShowWritingModal ? "hidden" : "";
+  // }, [isShowWritingModal]);
+
+  const clickHandler = (e) => {
+    setIsShowWritingModal(true);
+  };
 
   return (
     <div>
@@ -25,13 +31,7 @@ function TopNav() {
               <Link to="/">익명</Link>
             </SideBlock>
             <SideBlock>
-              <WriteBtn
-                onClick={() => {
-                  setShowModalAddPost(true);
-                }}
-              >
-                글쓰기
-              </WriteBtn>
+              <WriteBtn onClick={clickHandler}>글쓰기</WriteBtn>
               <Link to="/logout">
                 <LoginBtn>로그아웃</LoginBtn>
               </Link>
@@ -42,8 +42,8 @@ function TopNav() {
       <OutletWrapper>
         <Outlet />
       </OutletWrapper>
-      {showModalAddPost && (
-        <ModalAddPost onClose={() => setShowModalAddPost(false)} />
+      {isShowWritingModal && (
+        <Writing onClose={() => setIsShowWritingModal(false)} />
       )}
     </div>
   );
