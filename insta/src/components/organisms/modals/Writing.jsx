@@ -1,22 +1,128 @@
-import React, { useContext, useState } from "react";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useContext, useEffect, useState } from "react";
 import {
   AiOutlineClose,
   AiFillCaretDown,
-  AiFillCamera,
-  AiFillCheckCircle,
+  AiOutlineCamera,
+  AiOutlineBarChart,
 } from "react-icons/ai";
+import { FiAtSign } from "react-icons/fi";
+import { BsHash } from "react-icons/bs";
 import styled from "styled-components";
+import { getBoardList } from "../../../apis/board";
 import WritingModalContext from "../../../contexts/WritingModalContext";
+import ConfirmModal from "./ConfirmModal";
+import { postArticleCreate } from "../../../apis/article";
+import { ModalOutside } from "../../atoms/modal";
 
 function Writing({ onClose }) {
-  const [boardList, setBoardList] = useState([]);
+  const [boardList, setBoardList] = useState([
+    {
+      _id: "61ecf1c4f297fa9dacc0dfbd",
+      title: "오늘의 인기글",
+      slug: "오늘의 인기글",
+      createdAt: "2022-01-23T06:12:20.288Z",
+      __v: 0,
+    },
+    {
+      _id: "621b1907acade95a6481a603",
+      title: "익명1",
+      slug: "익명1",
+      createdAt: "2022-02-27T06:24:07.802Z",
+      __v: 0,
+    },
+    {
+      _id: "621b1910acade95a6481a605",
+      title: "익명2",
+      slug: "익명2",
+      createdAt: "2022-02-27T06:24:16.031Z",
+      __v: 0,
+    },
+    {
+      _id: "621b1934acade95a6481a607",
+      title: "연애상담소",
+      slug: "연애상담소",
+      createdAt: "2022-02-27T06:24:52.378Z",
+      __v: 0,
+    },
+    {
+      _id: "621b1945acade95a6481a609",
+      title: "정치/이슈",
+      slug: "정치/이슈",
+      createdAt: "2022-02-27T06:25:09.327Z",
+      __v: 0,
+    },
+    {
+      _id: "621b1953acade95a6481a60b",
+      title: "주식/투자",
+      slug: "주식/투자",
+      createdAt: "2022-02-27T06:25:23.741Z",
+      __v: 0,
+    },
+    {
+      _id: "621b1963acade95a6481a60d",
+      title: "자유게시판",
+      slug: "자유게시판",
+      createdAt: "2022-02-27T06:25:39.113Z",
+      __v: 0,
+    },
+    {
+      _id: "621b196aacade95a6481a60f",
+      title: "문의",
+      slug: "문의",
+      createdAt: "2022-02-27T06:25:46.673Z",
+      __v: 0,
+    },
+    {
+      _id: "621b1986acade95a6481a611",
+      title: "이직/커리어",
+      slug: "이직/커리어",
+      createdAt: "2022-02-27T06:26:14.495Z",
+      __v: 0,
+    },
+  ]);
   const [currentSelectBoard, setCurrentSelectBoard] = useState(0);
   const [isBoardSelected, setIsBoardSelected] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [inputTitle, setInputTitle] = useState("");
+  const [inputContent, setInputContent] = useState("");
+  const [inputImage, setInputImage] = useState("");
 
-  const handleClickBoard = ({ index }) => {
-    setCurrentSelectBoard(index);
+  {
+    /*서비스 안정화 되면 사용하기 */
+  }
+  // useEffect(() => {
+  //   (async () => {
+  //     const data = await getBoardList();
+  //     setBoardList(data);
+  //     console.log(data);
+  //   })();
+  // }, []);
+  const handleClickBoard = (_id) => {
+    setCurrentSelectBoard(_id);
     setIsBoardSelected(false);
   };
+
+  const confirmUploadModal = () => {
+    setShowConfirmModal(true);
+  };
+  const closeConfirmModal = () => {
+    setShowConfirmModal(false);
+  };
+  const uploadArticle = async () => {
+    const params = {
+      title: inputTitle,
+      content: inputContent,
+      board: boardList[currentSelectBoard]._id,
+      //image: inputImage
+    };
+    //const data = await postArticleCreate(params);
+    setInputContent("");
+    setInputTitle("");
+    closeConfirmModal();
+    onClose();
+  };
+
   return (
     <ModalOutside>
       <WritingModal>
@@ -25,7 +131,7 @@ function Writing({ onClose }) {
             <AiOutlineClose />
           </a>
           <h5>글쓰기</h5>
-          <a>등록</a>
+          <a onClick={() => confirmUploadModal()}>등록</a>
         </div>
         {boardList.length >= 0 && (
           <div className="dropdown">
@@ -35,17 +141,18 @@ function Writing({ onClose }) {
                 setIsBoardSelected(!isBoardSelected);
               }}
             >
-              {/* {boardList[currentSelectBoard].title} */}
-              <span>보드보드</span>
-              <AiFillCaretDown />
+              <span>{boardList[currentSelectBoard].title}</span>
+              <AiFillCaretDown
+                className={!isBoardSelected ? "rotated down-icon" : "down-icon"}
+              />
             </a>
             {/* 드롭다운 영역 */}
             {isBoardSelected && (
-              <div class="board-container">
+              <div className="board-container">
                 {boardList.map((b, index) => (
                   <div
                     key={b._id}
-                    class="board-item"
+                    className="board-item"
                     onClick={() => {
                       handleClickBoard(index);
                     }}
@@ -56,49 +163,46 @@ function Writing({ onClose }) {
               </div>
             )}
             <div className="input-container">
-              <input type="text" placeholder="제목을 입력해주세요." />
-              <textarea placeholder="토픽에 맞지 않는 글로 판단되어 다른 유저로부터 일정 수 이상의 신고를 받는 경우 글이 자동으로 숨김처리 될 수 있습니다."></textarea>
+              <input
+                type="text"
+                placeholder="제목을 입력해주세요."
+                value={inputTitle}
+                onChange={(e) => {
+                  setInputTitle(e.target.value);
+                }}
+              />
+              <textarea
+                placeholder="토픽에 맞지 않는 글로 판단되어 다른 유저로부터 일정 수 이상의 신고를 받는 경우 글이 자동으로 숨김처리 될 수 있습니다."
+                value={inputContent}
+                onChange={(e) => {
+                  setInputContent(e.target.value);
+                }}
+              ></textarea>
             </div>
             <div className="foot">
-              <AiFillCamera className="icon" />
+              <AiOutlineCamera size="40" className="icon" />
+              <AiOutlineBarChart size="40" className="icon" />
+              <FiAtSign size="40" className="icon" />
+              <BsHash size="40" className="icon" />
               {/* <input type="file" ref="img" class="hide" /> */}
             </div>
           </div>
         )}
       </WritingModal>
+      {showConfirmModal && (
+        <ConfirmModal
+          title={`${boardList[currentSelectBoard].title} 에 글을 등록하시겠습니까?`}
+          closeConfirmModal={() => {
+            closeConfirmModal();
+          }}
+          uploadArticle={() => {
+            uploadArticle();
+          }}
+        />
+      )}
     </ModalOutside>
   );
 }
-
-const ModalOutside = styled.div`
-  position: fixed;
-  display: grid;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.75);
-  place-content: center;
-  z-index: 1;
-  .head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: rgb(34, 34, 34);
-    font-size: 18px;
-    font-weight: 700;
-    padding: 23px 30px;
-    border-bottom: solid 1px rgb(223, 225, 228);
-    h5 {
-      margin: 0;
-    }
-    .close-btn {
-      width: 16px;
-      height: 16px;
-      cursor: pointer;
-    }
-  }
-`;
 
 const WritingModal = styled.div`
   width: 750px;

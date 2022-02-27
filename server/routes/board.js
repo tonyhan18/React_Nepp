@@ -4,7 +4,7 @@ const { Board } = require("../mongoose/model");
 let router = express.Router();
 
 router.get("/board/main", async (req, res, next) => {
-  const board = await Board.find();
+  const board = await Board.find().sort("_id");
   if (!Array.isArray(board)) {
     res.send({
       error: true,
@@ -43,7 +43,7 @@ router.get("/board/main", async (req, res, next) => {
 });
 
 router.get("/board/list", async (req, res) => {
-  const board = await Board.find();
+  const board = await Board.find().sort("_id");
   res.send(board);
 });
 

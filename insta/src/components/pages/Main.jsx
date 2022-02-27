@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 //import { PostList } from "../organisms";
-import { getRecentBoardArticleList } from "../../apis/board";
+import { getBoardList, getRecentBoardArticleList } from "../../apis/board";
 import {
   BestBoardCard,
   BoardCard,
@@ -11,14 +11,11 @@ import {
 
 const Main = () => {
   const [mainContent, setMainContent] = useState([]);
+
   useEffect(() => {
     (async () => {
-      const { data } = await getRecentBoardArticleList();
-
-      if (data.error) {
-        return;
-      }
-      setMainContent(data.content);
+      const { content } = await getRecentBoardArticleList();
+      setMainContent(content);
     })();
   }, []);
 
@@ -26,23 +23,17 @@ const Main = () => {
     <MainContainer>
       <MainContent>
         <Searchbar />
-        {mainContent.map((b) => (
-          <BestBoardCard
-            key={b.slug}
-            title={b.title}
-            slug={b.slug}
-            articleList={b.content}
-          />
-        ))}
-        <BoardCardContainer>
-          {mainContent.map((b) => (
-            <BoardCard
-              key={b.slug}
+        {mainContent
+          .filter((v) => v.title === "오늘의 인기글")
+          .map((b) => (
+            <BestBoardCard
+              key={b._id}
               title={b.title}
               slug={b.slug}
               articleList={b.content}
             />
           ))}
+        <BoardCardContainer>
           {mainContent.map((b) => (
             <BoardCard
               key={b.slug}

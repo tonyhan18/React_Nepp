@@ -7,7 +7,6 @@ import styled from "styled-components";
 import {
   ArticleList,
   ArticleTitle,
-  BoardIcon,
   Body,
   CountDisplay,
   CountItem,
@@ -19,15 +18,16 @@ import { getBoardList } from "../../../apis/board";
 
 const BestBoardCard = ({ title, slug, articleList }) => {
   const [boardList, setBoardList] = useState({});
-  useEffect(() => {
-    (async () => {
-      const data = await getBoardList();
-      //console.log(data);
-      data.forEach((v) => {
-        setBoardList({ ...boardList, [v._id]: v.title });
-      });
-    })();
-  }, []);
+
+  //console.log(articleList);
+  // useEffect(() => {
+  //   (async () => {
+  //     const data = await getBoardList();
+  //     data.forEach((v) => {
+  //       setBoardList({ ...boardList, [v._id]: v.title });
+  //     });
+  //   })();
+  // }, []);
   return (
     <Wrapper>
       <Head>
@@ -42,7 +42,7 @@ const BestBoardCard = ({ title, slug, articleList }) => {
           {articleList.map((a) => (
             <li key={a.id + a.slug}>
               <ArticleTitle>
-                <BoardTag>{boardList[a.board]}</BoardTag>
+                {/* <BoardTag>{boardList[a.board]}</BoardTag> */}
                 <span>{a.title}</span>
               </ArticleTitle>
               <CountDisplay>

@@ -1,8 +1,12 @@
 import { Instance } from "./index";
 
 export const getRecentBoardArticleList = async () => {
-  const data = await Instance.get("/board/main");
-  return data;
+  const { data } = await Instance.get("/board/main");
+  if (data.error) {
+    return;
+  } else {
+    return data;
+  }
 };
 
 export const getBoardList = async () => {
