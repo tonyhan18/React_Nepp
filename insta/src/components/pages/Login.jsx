@@ -16,6 +16,7 @@ import {
 import { Instance } from "../../apis/index.js";
 import UserContext from "../../contexts/user.js";
 import logo from "../../assets/logo/logo.png";
+import axios from "../../../node_modules/axios/index";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,7 +35,8 @@ const Login = () => {
     if (!error) {
       localStorage.setItem("token", token);
       //localStorage.token = token;
-      Instance.defaults.headers.common["Authorization"] = token;
+      //Instance.defaults.headers.common["Authorization"] = token;
+      axios.defaults.headers.common["Authorization"] = token;
       setIsLogin(true);
       navigate("/");
     } else {

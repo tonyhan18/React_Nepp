@@ -66,6 +66,7 @@ const { Article, Comment, Reply } = require("../mongoose/model");
 // 게시글 추가
 router.post("/article/create", async (req, res) => {
   const { title, content, board, image } = req.body;
+  console.log(req.headers);
   const { authorization } = req.headers;
 
   if (!authorization) {
@@ -75,12 +76,13 @@ router.post("/article/create", async (req, res) => {
     });
   }
 
-  const token = authorization.split(" ")[1];
+  const token = authorization.split(" ")[0];
   const secret = req.app.get("jwt-secret");
+  console.log(token);
 
   jwt.verify(token, secret, async (err, data) => {
     if (err) {
-      res.send(err);
+      return res.send({ msg: false });
     }
     const payload = {
       author: data.id,
@@ -90,6 +92,7 @@ router.post("/article/create", async (req, res) => {
       //articleImgAddress: image,
     };
     const newArticle = await Article(payload).save();
+    //res.send({ newArticle, check: data, err });
     res.send(newArticle);
   });
 });

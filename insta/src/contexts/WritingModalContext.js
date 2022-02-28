@@ -1,8 +1,11 @@
 import { createContext } from "react";
 
-const WritingModalContext = createContext({
+export const WritingModalContext = createContext({
   isShowWritingModal: false,
   setIsShowWritingModal: () => {},
 });
 
-export default WritingModalContext;
+export const Confirm = createContext({
+  confirm: false,
+  setConfirm: () => {},
+});

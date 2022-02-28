@@ -86,6 +86,7 @@ function Writing({ onClose }) {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [inputTitle, setInputTitle] = useState("");
   const [inputContent, setInputContent] = useState("");
+  const [confirmTitle, setConfirmTitle] = useState("");
   const [inputImage, setInputImage] = useState("");
 
   {
@@ -104,6 +105,9 @@ function Writing({ onClose }) {
   };
 
   const confirmUploadModal = () => {
+    setConfirmTitle(
+      `${boardList[currentSelectBoard].title} 에 글을 등록하시겠습니까?`
+    );
     setShowConfirmModal(true);
   };
   const closeConfirmModal = () => {
@@ -116,10 +120,12 @@ function Writing({ onClose }) {
       board: boardList[currentSelectBoard]._id,
       //image: inputImage
     };
-    //const data = await postArticleCreate(params);
+    const data = await postArticleCreate(params);
+    console.log(data);
     setInputContent("");
     setInputTitle("");
     closeConfirmModal();
+    setConfirmTitle("");
     onClose();
   };
 
@@ -191,7 +197,7 @@ function Writing({ onClose }) {
       </WritingModal>
       {showConfirmModal && (
         <ConfirmModal
-          title={`${boardList[currentSelectBoard].title} 에 글을 등록하시겠습니까?`}
+          title={confirmTitle}
           closeConfirmModal={() => {
             closeConfirmModal();
           }}

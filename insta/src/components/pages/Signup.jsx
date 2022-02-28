@@ -22,7 +22,6 @@ const Signup = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserInfo({ ...userInfo, [name]: value });
-    console.log(userInfo);
   };
 
   const handleSubmit = async (e) => {
@@ -48,6 +47,12 @@ const Signup = () => {
           <Logo src={logo} />
           <Form onSubmit={handleSubmit}>
             <InputText
+              name="nickname"
+              placeholder="닉네임"
+              value={userInfo.nickname}
+              onChange={handleChange}
+            />
+            <InputText
               name="email"
               placeholder="이메일"
               value={userInfo.email}
@@ -65,6 +70,12 @@ const Signup = () => {
               placeholder="비밀번호 확인"
               type="password"
               value={userInfo.passwordConfirm}
+              onChange={handleChange}
+            />
+            <InputText
+              name="company"
+              placeholder="회사"
+              value={userInfo.company}
               onChange={handleChange}
             />
             <BtnSubmit>가입</BtnSubmit>

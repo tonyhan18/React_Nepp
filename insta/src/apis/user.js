@@ -2,8 +2,9 @@ import { Instance } from "./index";
 
 export const addUser = async (params) => {
   try {
-    const result = await Instance.post("/user/create", params);
-    return result.data;
+    const { data } = await Instance.post("/user/create", params);
+    console.log(data);
+    return data;
   } catch ({ response }) {
     return response.data;
   }

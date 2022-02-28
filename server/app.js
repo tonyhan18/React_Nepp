@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // route control
 //app.use("/", indexRouter);
 app.use(usersRouter);
-//app.use("/article", articleRouter);
+app.use(articleRouter);
 app.use(boardsRouter);
 app.use(companyRouter);
 // app.use("/upload", uploadRouter);

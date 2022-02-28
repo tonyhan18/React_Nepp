@@ -4,7 +4,7 @@ import { Btn } from "../../../apis/index";
 import { ModalOutside } from "../../atoms/modal";
 
 const ConfirmModal = ({ title, closeConfirmModal, uploadArticle }) => {
-  console.log(title);
+  //console.log(title);
   return (
     <ModalOutside>
       <ConfirmModalWrapper>

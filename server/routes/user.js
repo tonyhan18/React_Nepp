@@ -56,8 +56,20 @@ router.post("/user/create", async (req, res) => {
     password,
     company,
   }).save();
+  let params = {};
 
-  res.send(newUser._id ? true : false);
+  if (newUser._id) {
+    params = {
+      success: true,
+      msg: "회원가입 성공",
+    };
+  } else {
+    params = {
+      success: false,
+      msg: "회원가입 실패",
+    };
+  }
+  res.send(params);
 });
 
 // 사용자 토큰 체크
