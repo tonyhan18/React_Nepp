@@ -66,3 +66,39 @@ export const CountItem = styled.div`
     margin-right: 5px;
   }
 `;
+
+export const BoardContainer = styled.div`
+  padding: 32px 0;
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  section.board {
+    /* display: flex;
+    justify-content: center; */
+    font-size: 14px;
+    height: 31px;
+    width: 100%;
+    padding-top: 9px;
+    border-bottom: 2px solid #dbdee7;
+    .board-item {
+      color: rgb(148, 150, 155);
+      padding: 0 5px 20px;
+      border-bottom: 2px solid transparent;
+      &.active {
+        color: rgb(34, 34, 34);
+        border-bottom: 2px solid rgb(34, 34, 34);
+      }
+    }
+  }
+  section.total {
+    padding: 20px 0 10px;
+    border-bottom: 2px solid #dbdee7;
+  }
+  .article-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+`;

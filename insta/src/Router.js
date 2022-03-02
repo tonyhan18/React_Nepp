@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Signup, Main, Login, Logout } from "./components/pages/";
 import { TopNav, LoginCheck } from "./components/organisms/index";
+import _id from "./components/pages/topics/_id";
 
 const Router = () => {
   return (
@@ -9,6 +10,7 @@ const Router = () => {
         <Route path="/" element={<LoginCheck />}>
           <Route path="/" element={<TopNav />}>
             <Route path="/" element={<Main />} />
+            <Route path="/topics/:slug" element={<_id />} />
           </Route>
           <Route path="/logout" element={<Logout />} />
         </Route>

@@ -4,7 +4,7 @@ const { Board } = require("../mongoose/model");
 let router = express.Router();
 
 router.get("/board/main", async (req, res, next) => {
-  const board = await Board.find().sort("_id");
+  const board = await Board.find();
   if (!Array.isArray(board)) {
     res.send({
       error: true,
@@ -49,7 +49,9 @@ router.get("/board/list", async (req, res) => {
 
 // 게시판별 게시글을 가져오는 라우트
 router.get("/board/:slug", async (req, res) => {
+  console.log("working");
   const { slug } = req.params;
+  console.log(req.params);
   const { lastIndex } = req.query; // 무한 스크롤 구현시 사용할 부분
 
   const board = await Board.findOne({ slug });
@@ -60,36 +62,51 @@ router.get("/board/:slug", async (req, res) => {
       msg: "존재하지 않는 게시판",
     });
   }
-
-  const findOption = {
-    board: board._id,
-  };
-
-  if (lastIndex !== "0") {
-    findOption._id = { $lt: lastIndex };
-  }
-
-  const article = await Article.find(findOption)
-    .sort({ _id: -1 })
-    .limit(6)
-    .populate({
-      path: "author",
-      populate: { path: "company" },
-    });
-
-  const formatedArtilce = article.map((v) => {
-    return {
-      ...v._doc,
-      author: {
-        ...v._doc.author._doc,
-        nickname: `${v._doc.author._doc.nickname[0]}${"*".repeat(
-          v._doc.author._doc.nickname.length - 1
-        )}`,
-      },
-    };
-  });
-  res.send({ article: formatedArtilce, error: false, msg: "성공" });
+  const article = await Article.find({ board: board._id });
+  res.send({ article, error: false, msg: "성공" });
 });
+// router.get("/board/:slug", async (req, res) => {
+//   const { slug } = req.params;
+//   //const { lastIndex } = req.query; // 무한 스크롤 구현시 사용할 부분
+
+//   const board = await Board.findOne({ slug });
+//   if (!board._id) {
+//     return res.send({
+//       article: [],
+//       error: true,
+//       msg: "존재하지 않는 게시판",
+//     });
+//   }
+
+//   const findOption = {
+//     board: board._id,
+//   };
+
+//   if (lastIndex !== "0") {
+//     findOption._id = { $lt: lastIndex };
+//   }
+
+//   const article = await Article.find(findOption)
+//     .sort({ _id: -1 })
+//     .limit(6)
+//     .populate({
+//       path: "author",
+//       populate: { path: "company" },
+//     });
+
+//   const formatedArtilce = article.map((v) => {
+//     return {
+//       ...v._doc,
+//       author: {
+//         ...v._doc.author._doc,
+//         nickname: `${v._doc.author._doc.nickname[0]}${"*".repeat(
+//           v._doc.author._doc.nickname.length - 1
+//         )}`,
+//       },
+//     };
+//   });
+//   res.send({ article: formatedArtilce, error: false, msg: "성공" });
+// });
 
 // 관리자: 게시판 추가
 router.post("/board/create", async (req, res) => {

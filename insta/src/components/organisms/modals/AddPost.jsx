@@ -31,7 +31,7 @@ const ModalAddPost = ({ onClose }) => {
     //const promiseList = [uploadImage({ file: imageList[0].file })];
     const promiseList = imageList.map(({ file }) => uploadImage({ file }));
     const urlList = await Promise.all(promiseList);
-    addPost({ content, imageList: urlList });
+    //addPost({ content, imageList: urlList });
   };
 
   return (

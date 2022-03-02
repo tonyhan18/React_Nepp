@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   ArticleList,
@@ -23,7 +23,7 @@ const BoardCard = ({ title, slug, articleList }) => {
           <BoardIcon></BoardIcon>
           <h2>{title}</h2>
         </TitleSide>
-        <BoardLink to={slug}>더보기 +</BoardLink>
+        <BoardLink to={`/topics/${slug}`}>더보기 +</BoardLink>
       </Head>
       <Body>
         <ArticleList>

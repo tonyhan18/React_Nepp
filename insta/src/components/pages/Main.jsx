@@ -14,8 +14,13 @@ const Main = () => {
 
   useEffect(() => {
     (async () => {
-      const { content } = await getRecentBoardArticleList();
-      setMainContent(content);
+      let { content } = await getRecentBoardArticleList();
+      setMainContent(
+        content.sort(
+          (a, b) =>
+            new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime()
+        )
+      );
     })();
   }, []);
 

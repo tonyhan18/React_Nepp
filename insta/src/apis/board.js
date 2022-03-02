@@ -17,7 +17,7 @@ export const getBoardList = async () => {
   return data;
 };
 
-export const addPost = async (params) => {
-  const { data } = await Instance.post("/posts", params);
+export const getBoardArticleList = async (params) => {
+  const { data } = await Instance.get(`/board/${params.slug}`);
   return data;
 };

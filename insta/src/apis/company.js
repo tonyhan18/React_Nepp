@@ -4,7 +4,6 @@ import { Instance } from "./index";
 export const getCompanyListFamous = async () => {
   try {
     const { data } = await Instance.get("/company/list/famous");
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
