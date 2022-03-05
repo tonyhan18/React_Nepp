@@ -4,64 +4,64 @@ const jwt = require("jsonwebtoken");
 const { Article, Comment, Reply } = require("../mongoose/model");
 
 // 개별 게시글 가져오는 라우트
-// router.get("/article/:key", async (req, res) => {
-//   const { key } = req.params;
-//   const article = await Article.findOne({ key: key })
-//     .populate("board")
-//     .populate({
-//       path: "author",
-//       populate: { path: "company" },
-//     });
+router.get("/article/:key", async (req, res) => {
+  const { key } = req.params;
+  const article = await Article.findOne({ key: key })
+    .populate("board")
+    .populate({
+      path: "author",
+      populate: { path: "company" },
+    });
 
-//   const commentList = await Comment.find({ article: article._id }).populate({
-//     path: "author",
-//     populate: { path: "company" },
-//   });
+  const commentList = await Comment.find({ article: article._id }).populate({
+    path: "author",
+    populate: { path: "company" },
+  });
 
-//   Promise.all(
-//     commentList.map(async (v) => {
-//       const replies = await Reply.find({ comment: v._doc._id }).populate({
-//         path: "author",
-//         populate: { path: "company" },
-//       });
-//       return {
-//         ...v._doc,
-//         author: {
-//           ...v._doc.author._doc,
-//           nickname: `${v._doc.author._doc.nickname[0]}${"*".repeat(
-//             v._doc.author._doc.nickname.length - 1
-//           )}`,
-//         },
-//         replies: replies.map((r) => {
-//           return {
-//             ...r._doc,
-//             author: {
-//               ...r._doc.author._doc,
-//               nickname: `${r._doc.author._doc.nickname[0]}${"*".repeat(
-//                 r._doc.author._doc.nickname.length - 1
-//               )}`,
-//             },
-//           };
-//         }), // 대댓글 배열
-//       };
-//     })
-//   )
-//     .then((comment) => {
-//       res.send({
-//         article: {
-//           ...article._doc,
-//           author: {
-//             ...article._doc.author._doc,
-//             nickname: `${article.author._doc.nickname[0]}${"*".repeat(
-//               article._doc.author._doc.nickname.length - 1
-//             )}`,
-//           },
-//         },
-//         comment: comment,
-//       });
-//     })
-//     .catch(() => {});
-// });
+  Promise.all(
+    commentList.map(async (v) => {
+      const replies = await Reply.find({ comment: v._doc._id }).populate({
+        path: "author",
+        populate: { path: "company" },
+      });
+      return {
+        ...v._doc,
+        author: {
+          ...v._doc.author._doc,
+          nickname: `${v._doc.author._doc.nickname[0]}${"*".repeat(
+            v._doc.author._doc.nickname.length - 1
+          )}`,
+        },
+        replies: replies.map((r) => {
+          return {
+            ...r._doc,
+            author: {
+              ...r._doc.author._doc,
+              nickname: `${r._doc.author._doc.nickname[0]}${"*".repeat(
+                r._doc.author._doc.nickname.length - 1
+              )}`,
+            },
+          };
+        }), // 대댓글 배열
+      };
+    })
+  )
+    .then((comment) => {
+      res.send({
+        article: {
+          ...article._doc,
+          author: {
+            ...article._doc.author._doc,
+            nickname: `${article.author._doc.nickname[0]}${"*".repeat(
+              article._doc.author._doc.nickname.length - 1
+            )}`,
+          },
+        },
+        comment: comment,
+      });
+    })
+    .catch(() => {});
+});
 
 // 게시글 추가
 router.post("/article/create", async (req, res) => {

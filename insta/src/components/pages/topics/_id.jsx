@@ -7,8 +7,9 @@ import GlobalArticleCard from "../../organisms/GlobalArticleCard";
 
 const _id = () => {
   const [boardList, setBoardList] = useState([]);
-  const currentPath = useRef(decodeURI(useLocation().pathname));
+  const currentPath = decodeURI(useLocation().pathname);
   const [articleList, setArticleList] = useState([]);
+
   useEffect(() => {
     (async () => {
       const data = await getBoardList();
@@ -16,18 +17,19 @@ const _id = () => {
     })();
     (async () => {
       const params = {
-        slug: currentPath.current.split("/")[2],
+        slug: currentPath.split("/")[2],
       };
       const { article } = await getBoardArticleList(params);
-      //console.log(article);
+      console.log(article);
       setArticleList(article);
     })();
-  }, [articleList]);
+  }, [currentPath]);
+
   return (
     <BoardContainer>
-      {boardList.length > 0 &&
-        boardList.map((b) => (
-          <section className="board">
+      <section className="board">
+        {boardList.length > 0 &&
+          boardList.map((b) => (
             <Link
               className={
                 "board-item " +
@@ -37,14 +39,12 @@ const _id = () => {
             >
               {b.title}
             </Link>
-          </section>
-        ))}
-
+          ))}
+      </section>
       <section className="article-list">
         {articleList.map((a) => (
           <GlobalArticleCard article={a} key={a._id} />
         ))}
-
         {/* <infinite-loading @infinite="getBoardArticleList"></infinite-loading> */}
       </section>
     </BoardContainer>

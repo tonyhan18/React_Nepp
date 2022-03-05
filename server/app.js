@@ -10,6 +10,7 @@ const boardsRouter = require("./routes/board.js");
 const uploadRouter = require("./routes/upload.js");
 const articleRouter = require("./routes/article.js");
 const companyRouter = require("./routes/company.js");
+const searchRouter = require("./routes/search.js");
 const secretKey = "THISISSECRET";
 
 //const __dirname = path.resolve();
@@ -28,12 +29,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // route control
-//app.use("/", indexRouter);
 app.use(usersRouter);
 app.use(articleRouter);
 app.use(boardsRouter);
 app.use(companyRouter);
-// app.use("/upload", uploadRouter);
+app.use(uploadRouter);
+app.use(searchRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

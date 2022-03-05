@@ -72,12 +72,8 @@ export const BoardContainer = styled.div`
   width: 100%;
   max-width: 1100px;
   margin: auto;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   section.board {
-    /* display: flex;
-    justify-content: center; */
+    display: flex;
     font-size: 14px;
     height: 31px;
     width: 100%;

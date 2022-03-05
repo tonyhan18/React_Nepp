@@ -5,3 +5,8 @@ export const postArticleCreate = (params) => {
   console.log(data);
   return data;
 };
+
+export const getArticle = (params) => {
+  const data = Instance.get(`/article/${params.key}`);
+  console.log(data);
+};

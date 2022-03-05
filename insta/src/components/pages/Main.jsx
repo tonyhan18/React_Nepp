@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 //import { PostList } from "../organisms";
 import { getBoardList, getRecentBoardArticleList } from "../../apis/board";
+import { MainContainer } from "../atoms/global";
 import {
   BestBoardCard,
   BoardCard,
@@ -26,7 +27,7 @@ const Main = () => {
 
   return (
     <MainContainer>
-      <MainContent>
+      <main className="main-container">
         <Searchbar />
         {mainContent
           .filter((v) => v.title === "오늘의 인기글")
@@ -48,21 +49,12 @@ const Main = () => {
             />
           ))}
         </BoardCardContainer>
-      </MainContent>
+      </main>
       <RealtimeFamousCompany />
     </MainContainer>
   );
 };
 
-const MainContainer = styled.div`
-  margin: auto;
-  display: flex;
-  max-width: 1100px;
-`;
-const MainContent = styled.div`
-  width: 100%;
-  max-width: 736px;
-`;
 const BoardCardContainer = styled.div`
   width: 100%;
   display: grid;

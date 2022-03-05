@@ -4,48 +4,50 @@ import styled from "styled-components";
 import { AiOutlineEye, AiOutlineMessage } from "react-icons/ai";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { FiThumbsUp } from "react-icons/fi";
+import { timeLeft } from "../../apis/time";
 
 const GlobalArticleCard = ({ article }) => {
   return (
     <GlobalArticleCardBlock>
-      <div class="head">
-        <Link to={article.key} className="title">
+      <div className="head">
+        <Link to={`/article/${article.key}`} className="title">
           {article.title}
         </Link>
       </div>
-      <div class="body">
-        <Link to={article.key} className="content">
+      <div className="body">
+        <Link to={`/article/${article.key}`} className="content">
           {article.content}
         </Link>
-        <div class="info">
-          <Link to={article.key} className="company">
-            {article.author}
+        <div className="info">
+          <Link to={`/article/${article.key}`} className="company">
+            {article.author.company.name}
           </Link>
-          <Link to={article.key}>·</Link>
-          <Link to={article.key} className="nickname">
-            {article.author}
+          <Link to={`/article/${article.key}`}>·</Link>
+          <Link to={`/article/${article.key}`} className="nickname">
+            {article.author.nickname}
           </Link>
         </div>
       </div>
-      <div class="foot">
-        <div class="left">
-          <Link to={article.key} className="count">
-            <AiOutlineEye size="16" className="icon" />
+      <div className="foot">
+        <div className="left">
+          <Link to={`/article/${article.key}`} className="count">
+            <AiOutlineEye className="icon" size="16" />
             {article.viewCount}
           </Link>
-          <Link to={article.key} className="count">
-            <FiThumbsUp size="16" className="icon" />
-
+          <Link to={`/article/${article.key}`} className="count">
+            <FiThumbsUp className="icon" size="16" />
             {article.thumbupCount}
           </Link>
-          <Link to={article.key} className="count">
-            <AiOutlineMessage class="icon" size="16" />
+          <Link to={`/article/${article.key}`} className="count">
+            <AiOutlineMessage className="icon" size="16" />
             {article.commentCount}
           </Link>
         </div>
-        <div class="right">
-          <Link to={article.key}>{new Date(article.createdAt).getTime()}</Link>
-          <BsFillBookmarkFill class="icon" size="16" />
+        <div className="right">
+          <Link to={`/article/${article.key}`}>
+            {timeLeft(article.createdAt)}
+          </Link>
+          <BsFillBookmarkFill className="icon" size="16" />
         </div>
       </div>
     </GlobalArticleCardBlock>
